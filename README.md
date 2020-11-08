@@ -2,7 +2,7 @@
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png)
 
-lightweight e fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
+lightweight and fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
 
 If you do not have snapd installed yet, run: 
 
@@ -26,5 +26,4 @@ command: `$ cli-dictionary`
 
 then: `<word> en/pt`
 
-Demo: 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif)
