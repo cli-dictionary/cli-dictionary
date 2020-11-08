@@ -17,3 +17,14 @@ Install from Snap Packages: `$ sudo snap install cli-dictionary`
 Official snap page: https://snapcraft.io/cli-dictionary
 
 For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
+
+### :rocket: Running
+
+Languages: English, Portuguese (Brazil)
+
+command: `$ cli-dictionary`
+
+then: `<word> en/pt`
+
+Demo: 
+![]https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif
