@@ -1,2 +1,19 @@
-# cli-dictionary
-dictionary made to be used through a terminal
+# Cli-Dictionary
+
+![](https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png)
+
+lightweight e fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
+
+If you do not have snapd installed yet, run: 
+
+`sudo apt-get update &&  sudo apt-get upgrade`
+
+then:
+
+`$ sudo apt install snapd`
+
+Install from Snap Packages: `$ sudo snap install cli-dictionary`
+
+Official snap page: https://snapcraft.io/cli-dictionary
+
+For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
