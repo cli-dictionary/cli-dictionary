@@ -27,4 +27,4 @@ command: `$ cli-dictionary`
 then: `<word> en/pt`
 
 Demo: 
-![]https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif
+![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif)
