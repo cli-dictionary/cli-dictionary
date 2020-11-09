@@ -4,6 +4,8 @@
 
 lightweight and fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
 
+This project uses [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
+
 If you do not have snapd installed yet, run: 
 
 `sudo apt-get update &&  sudo apt-get upgrade`
