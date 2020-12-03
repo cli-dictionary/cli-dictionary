@@ -29,3 +29,5 @@ command: `$ cli-dictionary`
 then: `<word> en/pt`
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif)
+
+### :coffee: [buy me a coffee](https://picpay.me/ropoko) 
