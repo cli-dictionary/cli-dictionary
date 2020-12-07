@@ -2,6 +2,10 @@
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png)
 
+![](https://img.shields.io/github/stars/ropoko/editor.md.svg)
+![](https://img.shields.io/github/release/ropoko/editor.md.svg)
+![](https://img.shields.io/github/issues/pandao/editor.md.svg)
+
 lightweight and fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
 
 #### This project uses [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
@@ -14,9 +18,8 @@ then:
 
 `$ sudo apt install snapd`
 
-Install from Snap Packages: `$ sudo snap install cli-dictionary`
+[![](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cli-dictionary)
 
-Official snap page: https://snapcraft.io/cli-dictionary
 
 For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
 
@@ -26,6 +29,6 @@ Languages: English, Portuguese (Brazil)
 
 command: `$ cli-dictionary`
 
-then: `<word> en/pt`
+then: `<word> <language>`
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif)
