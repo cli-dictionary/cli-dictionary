@@ -4,7 +4,7 @@
 
 ![](https://img.shields.io/github/stars/ropoko/editor.md.svg)
 ![](https://img.shields.io/github/release/ropoko/editor.md.svg)
-![](https://img.shields.io/github/issues/pandao/editor.md.svg)
+![](https://img.shields.io/github/issues/ropoko/editor.md.svg)
 
 lightweight and fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
 
