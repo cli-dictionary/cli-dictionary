@@ -2,9 +2,8 @@
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png)
 
-![](https://img.shields.io/github/stars/ropoko/editor.md.svg)
-![](https://img.shields.io/github/release/ropoko/editor.md.svg)
-![](https://img.shields.io/github/issues/ropoko/editor.md.svg)
+[![stars](https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square&logo=appveyor)](https://github.com/ropoko/cli-dictionary/stargazers/)
+[![tag](https://img.shields.io/github/tag/ropoko/cli-dictionary)](https://gitHub.com/ropoko/cli-dictionary/tags/)
 
 lightweight and fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
 
