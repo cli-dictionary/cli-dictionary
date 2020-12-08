@@ -1,1 +1,3 @@
 .vscode/
+/dictionary/__pycache__
+/dictionary/languages/__pycache__
