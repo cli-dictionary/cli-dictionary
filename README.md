@@ -2,12 +2,10 @@
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png)
 
-[![stars](https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square&logo=appveyor)](https://github.com/ropoko/cli-dictionary/stargazers/)
+[![stars](https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square)](https://github.com/ropoko/cli-dictionary/stargazers/)
 [![tag](https://img.shields.io/github/tag/ropoko/cli-dictionary)](https://gitHub.com/ropoko/cli-dictionary/tags/)
 
 lightweight and fast dictionary from command line that can give you the meaning from words in portuguese-Brazil and English (US)
-
-#### This project uses [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
 
 If you do not have snapd installed yet, run: 
 
@@ -17,10 +15,14 @@ then:
 
 `$ sudo apt install snapd`
 
+#### Install
+
 [![](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cli-dictionary)
 
 
 For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
+
+#### This project uses [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
 
 ### :rocket: Running
 
