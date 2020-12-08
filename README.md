@@ -20,6 +20,7 @@ then:
 `$ sudo apt install snapd`
 
 finally:
+
 [![](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cli-dictionary)
 
 ### :rocket: Running
