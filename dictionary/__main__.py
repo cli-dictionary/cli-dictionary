@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import json, sys
-from urllib.request import urlopen
 from languages.language import language
+import requests
 
 def main():
     word_lang = str(input(''))
@@ -9,8 +11,8 @@ def main():
     lang = word_lang.split(' ')[1].upper()
 
     if lang in language:
-        url = language[lang] + '/' + word.decode('utf-8')
-        meaning(url.encode('utf-8'))
+        url = language[lang] + word.decode('utf-8')
+        meaning(url)
     else:
         print("""
             select a valid language:
@@ -24,21 +26,24 @@ def main():
         """)
 
 def meaning(url):
-    response = urlopen(url)
-    data = json.loads(response.read())
+    header = {
+        "Accept": "charset=utf-8"
+    }
+
+    response = requests.request('GET', url, headers=header)
+    #response = urlopen(url)
+    data = json.loads(response.text.encode('utf-8'))
 
     for obj in data:
         try:
-            for i in range(10):
-                if i == 0:
-                    pass
-                else:
-                    print(
-                        str(obj).split("definition':")[i].split('.')[0].replace(
-                            "'",
-                            str(i) + '. '))
+            i = 0
+            definitions = obj['meanings'][0]['definitions']
 
-        except IndexError as ex:
+            for definition in definitions:
+                i = i + 1
+                print(str(i) + '. ' + definition['definition'])
+
+        except IndexError:
             break
 
 if __name__ == '__main__':
