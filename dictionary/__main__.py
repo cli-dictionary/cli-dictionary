@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json, sys
+import json
 from languages.language import language
 import requests
 
@@ -31,13 +31,17 @@ def meaning(url):
     }
 
     response = requests.request('GET', url, headers=header)
-    #response = urlopen(url)
+    
     data = json.loads(response.text.encode('utf-8'))
 
     for obj in data:
         try:
-            i = 0
+            if obj.__eq__('title'):
+                print('sorry, we could not find the word you are looking for :(')
+                return
+
             definitions = obj['meanings'][0]['definitions']
+            i = 0
 
             for definition in definitions:
                 i = i + 1

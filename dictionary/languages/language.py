@@ -9,7 +9,7 @@ language = {
     "DE": "https://api.dictionaryapi.dev/api/v2/entries/de/",
     "IT": "https://api.dictionaryapi.dev/api/v2/entries/it/",
     "KO": "https://api.dictionaryapi.dev/api/v2/entries/ko/",
-    "ZH": "https://api.dictionaryapi.dev/api/v2/entries/zh/",
+    "ZH": "https://api.dictionaryapi.dev/api/v2/entries/zh-CN/",
     "AR": "https://api.dictionaryapi.dev/api/v2/entries/ar/",
     "TR": "https://api.dictionaryapi.dev/api/v2/entries/tr/"
 }
