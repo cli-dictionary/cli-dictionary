@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from setuptools import setup
 
@@ -9,5 +9,5 @@ setup(
     packages = ['dictionary'],
     author='Ropoko',
     author_email='rodrigostramantinoli@gmail.com ',
-    scripts=['bin/dictionary/cli-dictionary'],
+    scripts=['bin/cli-dictionary'],
 )

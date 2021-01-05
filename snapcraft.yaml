@@ -4,7 +4,9 @@ version: latest
 summary: cli-dictionary
 description: |
   Get a word's meaning from a command line!
-  Languages: English(en), Portuguese Brazil(pt)
+  Languages: English, Portuguese Brazil, Hindi
+  Spanish, French, Japanese, Russian, German, Italian
+  Korean, Chinese (simplified), Arabic, Turkish
 grade: stable
 confinement: strict
 
@@ -16,9 +18,11 @@ apps:
     environment:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
-    
+  
 parts:
   cli-dictionary:
     plugin: python
     python-version: python3
     source: .
+    stage-packages:
+      - requests
