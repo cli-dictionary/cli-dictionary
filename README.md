@@ -8,6 +8,10 @@
 <p align="center">
   A lightweight and fast dictionary from command line.
 </p>
+<ul align="left">
+  <h4>Languages:</h4>
+  <li></li>
+</ul>
 
 <p align="center">
    <a style="text-decoration:none" href="https://github.com/ropoko/cli-dictionary/stargazers/">
@@ -23,8 +27,6 @@
 
 
 ## :rocket: Running
-
-Languages: English, Portuguese (Brazil)
 
 command: `$ cli-dictionary`
 
