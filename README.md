@@ -1,11 +1,19 @@
-# Cli-Dictionary
-
 <p align="center">
-  <img width="128" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png">
+  <img width="256" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png">
 </p>
 
-[![stars](https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square)](https://github.com/ropoko/cli-dictionary/stargazers/)
-[![tag](https://img.shields.io/github/tag/ropoko/cli-dictionary)](https://gitHub.com/ropoko/cli-dictionary/tags/)
+<h1 align="center">
+  Cli-dictionary
+</h1>
+
+<p align="center">
+   <a style="text-decoration:none" href="https://github.com/ropoko/cli-dictionary/stargazers/">
+    <img src="https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square" alt="stars" />
+  </a>
+  <a style="text-decoration:none" href="https://gitHub.com/ropoko/cli-dictionary/tags/">
+    <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary" alt="tags" />
+  </a>
+</p>
 
 ### :coffee: [buy me a coffee](https://picpay.me/ropoko) 
 
