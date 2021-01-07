@@ -8,10 +8,10 @@
 
 <p align="center">
    <a style="text-decoration:none" href="https://github.com/ropoko/cli-dictionary/stargazers/">
-    <img src="https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square" alt="stars" />
+    <img src="https://img.shields.io/github/stars/ropoko/cli-dictionary?style=for-the-badge" alt="stars" />
   </a>
   <a style="text-decoration:none" href="https://gitHub.com/ropoko/cli-dictionary/tags/">
-    <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary" alt="tags" />
+    <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary?style=for-the-badge" alt="tags" />
   </a>
 </p>
 
