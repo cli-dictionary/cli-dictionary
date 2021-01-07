@@ -18,32 +18,26 @@
   </a>
 </p>
 
-### :coffee: [buy me a coffee](https://picpay.me/ropoko) 
-
-### :zap: Install
-
-If you do not have snapd installed yet, run: 
-
-`$ sudo apt-get update &&  sudo apt-get upgrade`
-
-then:
-
-`$ sudo apt install snapd`
-
-finally:
-
+## :zap: Installing
 [![](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cli-dictionary)
 
-### :rocket: Running
+
+## :rocket: Running
 
 Languages: English, Portuguese (Brazil)
 
 command: `$ cli-dictionary`
 
-then: `<word> <language>`
+then: `$ <word> <language>`
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif)
 
-#### This project uses [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
 
-For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
+## :coffee: Contributing 
+- [buy me a coffee](https://picpay.me/ropoko) 
+
+
+## Dependencies
+- Snapd Package
+- [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
+- For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
