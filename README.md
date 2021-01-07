@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="256" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png">
+  <img width="200" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png">
 </p>
 
 <h1 align="center">
