@@ -36,9 +36,9 @@ def meaning(url):
 
     for obj in data:
         try:
-            #if obj.__eq__('title'):
-            #    print('sorry, we could not find the word you are looking for :(')
-            #    return
+            if obj.__eq__('title'):
+                print('sorry, we could not find the word you are looking for :(')
+                return
 
             definitions = obj['meanings'][0]['definitions']
             i = 0
