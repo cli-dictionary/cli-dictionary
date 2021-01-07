@@ -34,8 +34,8 @@ then: `$ <word> <language>`
 
 
 ## :coffee: Contributing 
-- [buy me a coffee](https://picpay.me/ropoko)
-- Pull Requests and opening issues are welcome
+- [Buy me a coffee](https://picpay.me/ropoko)
+- Pull Requests and issues are welcome
 
 
 ## Dependencies
