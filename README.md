@@ -1,6 +1,8 @@
 # Cli-Dictionary
 
-![](https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png)
+<p align="center">
+  <img width="128" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png">
+</p>
 
 [![stars](https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat-square)](https://github.com/ropoko/cli-dictionary/stargazers/)
 [![tag](https://img.shields.io/github/tag/ropoko/cli-dictionary)](https://gitHub.com/ropoko/cli-dictionary/tags/)
