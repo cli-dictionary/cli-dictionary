@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/icon.png">
+  <img width="200" align="center" src="https://github.com/ropoko/cli-dictionary/blob/main/assets/logo.png">
 </p>
 
 <h1 align="center">
@@ -57,3 +57,7 @@ then: `$ <word> <language>`
 - Snapd Package
 - [Google Api Dictionary](https://github.com/meetDeveloper/googleDictionaryAPI)
 - For more informations about Snap Packages  [click here](https://snapcraft.io/docs).
+
+## Special Thanks 
+- Rafael Ferrari whom made the logo | [mailto](mailto:rafaelferrari.job@gmail.com), number: +55 14 988045194
+
