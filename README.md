@@ -16,7 +16,7 @@
   <a style="text-decoration:none" href="https://gitHub.com/ropoko/cli-dictionary/tags/">
     <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary?style=for-the-badge" alt="tags" />
   </a>
-  <a href='https://coveralls.io/github/ropoko/cli-dictionary?branch=main'><img src='https://coveralls.io/repos/github/ropoko/cli-dictionary/badge.svg?branch=main&style=for-the-      badge' alt='Coverage Status' />
+  <a href='https://coveralls.io/github/ropoko/cli-dictionary?branch=main'><img src='https://coveralls.io/repos/github/ropoko/cli-dictionary/badge.svg?branch=main&' alt='Coverage     Status' />
   </a>
 </p>
 
