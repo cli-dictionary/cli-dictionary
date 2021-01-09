@@ -11,10 +11,10 @@
 
 <p align="center">
    <a style="text-decoration:none" href="https://github.com/ropoko/cli-dictionary/stargazers/">
-    <img src="https://img.shields.io/github/stars/ropoko/cli-dictionary?style=plastic&color=yellow" alt="stars" />
+    <img src="https://img.shields.io/github/stars/ropoko/cli-dictionary?style=flat&color=yellow" alt="stars" />
   </a>
   <a style="text-decoration:none" href="https://gitHub.com/ropoko/cli-dictionary/tags/">
-    <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary?style=plastic" alt="tags" />
+    <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary?style=flat" alt="tags" />
   </a>
   <a href='https://coveralls.io/github/ropoko/cli-dictionary?branch=main'><img src='https://coveralls.io/repos/github/ropoko/cli-dictionary/badge.svg?branch=main&' alt='Coverage     Status' />
   </a>
