@@ -16,9 +16,6 @@
   <a style="text-decoration:none" href="https://gitHub.com/ropoko/cli-dictionary/tags/">
     <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary?style=for-the-badge" alt="tags" />
   </a>
-  <a style="text-decoration:none" href="#">
-    <img src="https://github.com/ropoko/cli-dictionary/workflows/Code%20Quality/badge.svg" alt="quality" />
-  </a>
 </p>
 
 ## Languages
