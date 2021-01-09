@@ -25,6 +25,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Install coverage
+        run: pip install coverage
+
       - name: Coveralls
         uses: AndreMiras/coveralls-python-action@develop
         with:
