@@ -16,6 +16,8 @@
   <a style="text-decoration:none" href="https://gitHub.com/ropoko/cli-dictionary/tags/">
     <img src="https://img.shields.io/github/tag/ropoko/cli-dictionary?style=flat" alt="tags" />
   </a>
+  <a href="https://lgtm.com/projects/g/ropoko/cli-dictionary/context:python"><img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/ropoko/cli-dictionary.svg?logo=lgtm&logoWidth=18"/>
+  </a>
 </p>
 
 ## Languages
