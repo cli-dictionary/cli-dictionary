@@ -38,7 +38,11 @@
 | Turkish | tr |
 
 ## :zap: Installing
+try versions in devmode from:
+
 [![](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cli-dictionary)
+
+or simply: `$ sudo snap install cli-dictionary`
 
 
 ## :rocket: Running
