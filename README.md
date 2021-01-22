@@ -51,7 +51,7 @@ command: `$ cli-dictionary`
 
 then: `$ <word> <language>`
 
-![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo.gif)
+![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo-new.gif)
 
 
 ## :coffee: Contributing 
