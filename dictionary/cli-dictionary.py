@@ -3,7 +3,7 @@
 import sys
 import json
 import requests
-from language import language
+from dictionary.language import language
 #from dictionary.language import language
 
 def main(word, lang):
