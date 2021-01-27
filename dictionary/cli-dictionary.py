@@ -10,8 +10,11 @@ from language import language
 def main(word, lang, *args):
     word = word.encode('utf-8')
 
-    global sy
-    global ex
+    sy = True 
+    ex = True
+
+    #global sy
+    #global ex
 
     for arg in args:
         sy = arg[0]['synonyms']
@@ -46,46 +49,52 @@ def meaning(url, **kwargs):
     data = json.loads(response.text.encode('utf-8'))
 
     for obj in data:
-        try:
+        
             meanings = obj['meanings'][0]['definitions']
            
-            print('DEFINITIONS ----------------------')
-            
-            for definition in meanings:
-                print("- " +  definition['definition'])
+            get_data('DEFINITIONS', meanings, 'definition')
 
             if kwargs.get('examples'):
-                print('EXAMPLES ----------------------')
-
-                for example in meanings:
-                    print("- " + example['example'])
+                get_data('EXAMPLES', meanings, 'example')
 
             if kwargs.get('synonyms'):
-                print('SYNONYMS ----------------------')
-
-                i = 0
-
-                for synonym in meanings:
-                    i = i + 1
-                    print('- ' + synonym['synonyms'][i])
+                get_data('SYNONYMS', meanings, 'synonyms', j=0)
                 
-        except (IndexError, TypeError):
-            print('sorry, we could not find the word you are looking for :(')
-            break
+def get_data(title, array, key, **kwargs):
+    try:
+        i = 0
+        print(title + ' ----------------------')
 
-        except KeyError:
-            break
+        j = kwargs.get('j')
+
+        if j != 0:
+            for element in array:
+                i = i + 1
+                print(f'{str(i)}. {element[key]}')
+        else:
+            for element in array:
+                i = i + 1
+                j = j + 1
+                print(f'{str(i)}. {element[key][j]}')
+
+    except (IndexError, TypeError):
+        print('sorry, we could not find the word you are looking for :(')
+        return
+
+    except KeyError:
+        return
 
 def get_parser():
     parser = argparse.ArgumentParser(prog='cli-dictionary', description='the fastest way to find a word meaning.')
     parser.add_argument('word', type=str, help='the word to be searched.')
     parser.add_argument('lang', type=str, help='the language of the requested word.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 2.3.1')
-    parser.add_argument('-s', '--synonyms', action='store_true') #help='display the synonyms of the requested word.'
-    parser.add_argument('-e', '--examples', action='store_true') #help='display a phrase using the requested word.'
+    parser.add_argument('-s', '--synonyms', action='store_true', help='display the synonyms of the requested word.')
+    parser.add_argument('-e', '--examples', action='store_true', help='display a phrase using the requested word.')
     return parser
 
 if __name__ == '__main__':
     parser = get_parser()
-    args = vars(parser.parse_args())
-    main(sys.argv[1], sys.argv[2], [args])
+    #args = vars(parser.parse_args())
+    #main(sys.argv[1], sys.argv[2], [args])
+    main('life', 'en')
