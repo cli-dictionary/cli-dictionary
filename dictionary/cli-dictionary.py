@@ -39,23 +39,42 @@ def meaning(url):
 
     for obj in data:
         try:
-            definitions = obj['meanings'][0]['definitions']
+            meanings = obj['meanings'][0]['definitions']
+           
+            print('DEFINITIONS ----------------------')
+            
+            for definition in meanings:
+                print("- " +  definition['definition'])
+
+            
+            print('EXAMPLES ----------------------')
+
+            for example in meanings:
+                print("- " + example['example'])
+
+            print('SYNONYMS ----------------------')
+
             i = 0
 
-            for definition in definitions:
+            for synonym in meanings:
                 i = i + 1
-                print(str(i) + '. ' + definition['definition'])
+                print('- ' + synonym['synonyms'][i])
+                
 
         except (IndexError, TypeError):
             print('sorry, we could not find the word you are looking for :(')
+            break
+
+        except KeyError:
             break
 
 def get_parser():
     parser = argparse.ArgumentParser(prog='cli-dictionary', description='the fastest way to find a word meaning.')
     parser.add_argument('word', type=str, help='the word to be searched.')
     parser.add_argument('lang', type=str, help='the language of the requested word.')
-    parser.add_argument('-s', '--synonyms', help='display the synonyms of the requested word.')
-    parser.add_argument('-x', '--examples', help='display a phrase using the requested word.')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s 2.3.1')
+    parser.add_argument('-s', '--synonyms', help='display the synonyms of the requested word.', action='store_const', const=42)
+    parser.add_argument('-x', '--examples', help='display a phrase using the requested word.', action='store_const', const=42)
     return parser
 
 if __name__ == '__main__':
