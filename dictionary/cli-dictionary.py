@@ -7,15 +7,23 @@ import argparse
 from language import language
 #from dictionary.language import language
 
-def main(word, lang):
+def main(word, lang, *args):
     word = word.encode('utf-8')
+
+    global sy
+    global ex
+
+    for arg in args:
+        sy = arg[0]['synonyms']
+        ex = arg[0]['examples']
+        break
 
     # upper() because in list of language.py all the abbreviation are uppercased.
     lang = lang.upper()
 
     if lang in language:
        url = language[lang] + word.decode('utf-8')
-       meaning(url)
+       meaning(url, synonyms=sy, examples=ex)
     else:
        print("""
            select a valid language:
@@ -28,10 +36,10 @@ def main(word, lang):
            tr <turkish>
        """)
 
-def meaning(url):
+def meaning(url, **kwargs):
     header = {
         "Accept": "charset=utf-8"
-    }
+    }       
 
     response = requests.request('GET', url, headers=header)
     
@@ -46,21 +54,21 @@ def meaning(url):
             for definition in meanings:
                 print("- " +  definition['definition'])
 
-            
-            print('EXAMPLES ----------------------')
+            if kwargs.get('examples'):
+                print('EXAMPLES ----------------------')
 
-            for example in meanings:
-                print("- " + example['example'])
+                for example in meanings:
+                    print("- " + example['example'])
 
-            print('SYNONYMS ----------------------')
+            if kwargs.get('synonyms'):
+                print('SYNONYMS ----------------------')
 
-            i = 0
+                i = 0
 
-            for synonym in meanings:
-                i = i + 1
-                print('- ' + synonym['synonyms'][i])
+                for synonym in meanings:
+                    i = i + 1
+                    print('- ' + synonym['synonyms'][i])
                 
-
         except (IndexError, TypeError):
             print('sorry, we could not find the word you are looking for :(')
             break
@@ -73,11 +81,11 @@ def get_parser():
     parser.add_argument('word', type=str, help='the word to be searched.')
     parser.add_argument('lang', type=str, help='the language of the requested word.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 2.3.1')
-    parser.add_argument('-s', '--synonyms', help='display the synonyms of the requested word.', action='store_const', const=42)
-    parser.add_argument('-x', '--examples', help='display a phrase using the requested word.', action='store_const', const=42)
+    parser.add_argument('-s', '--synonyms', action='store_true') #help='display the synonyms of the requested word.'
+    parser.add_argument('-e', '--examples', action='store_true') #help='display a phrase using the requested word.'
     return parser
 
 if __name__ == '__main__':
     parser = get_parser()
     args = vars(parser.parse_args())
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], [args])
