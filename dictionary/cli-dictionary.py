@@ -3,7 +3,8 @@
 import sys
 import json
 import requests
-from dictionary.language import language
+import argparse
+from language import language
 #from dictionary.language import language
 
 def main(word, lang):
@@ -49,5 +50,15 @@ def meaning(url):
             print('sorry, we could not find the word you are looking for :(')
             break
 
+def get_parser():
+    parser = argparse.ArgumentParser(prog='cli-dictionary', description='the fastest way to find a word meaning.')
+    parser.add_argument('word', type=str, help='the word to be searched.')
+    parser.add_argument('lang', type=str, help='the language of the requested word.')
+    parser.add_argument('-s', '--synonyms', help='display the synonyms of the requested word.')
+    parser.add_argument('-x', '--examples', help='display a phrase using the requested word.')
+    return parser
+
 if __name__ == '__main__':
+    parser = get_parser()
+    args = vars(parser.parse_args())
     main(sys.argv[1], sys.argv[2])
