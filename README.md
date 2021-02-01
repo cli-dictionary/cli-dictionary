@@ -44,6 +44,7 @@
 ### Synonyms
 `$ cli-dictionary <word> <lang> -s` or `$ cli-dictionary <word> <lang> --synonyms`
 
+you also can do both: `$ cli-dictionary <word> <lang> -se`
 
 ## :zap: Installing
 try versions in devmode from:
