@@ -37,6 +37,14 @@
 | Arabic | ar |
 | Turkish | tr |
 
+## Features
+### Examples 
+`$ cli-dictionary <word> <lang> -e` or `$ cli-dictionary <word> <lang> --examples`
+
+### Synonyms
+`$ cli-dictionary <word> <lang> -s` or `$ cli-dictionary <word> <lang> --synonyms`
+
+
 ## :zap: Installing
 try versions in devmode from:
 
