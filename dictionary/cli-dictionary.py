@@ -7,34 +7,45 @@ import argparse
 from language import language
 #from dictionary.language import language
 
+
 def get_parser():
-    parser = argparse.ArgumentParser(prog='cli-dictionary', description='welcome to cli-dictionary, never use a browser again to get a word meaning ;)')
+    parser = argparse.ArgumentParser(
+        prog='cli-dictionary', description='welcome to cli-dictionary, never use a browser again to get a word meaning ;)')
     parser.add_argument('word', type=str, help='the word to be searched.')
-    parser.add_argument('lang', type=str, help='the language of the requested word.')
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s 2.3.1')
-    parser.add_argument('-s', '--synonyms', action='store_true', help='display the synonyms of the requested word.')
-    parser.add_argument('-e', '--examples', action='store_true', help='display a phrase using the requested word.')
+    parser.add_argument(
+        'lang', type=str, help='the language of the requested word.')
+    parser.add_argument('-v', '--version', action='version',
+                        version='%(prog)s 2.3.1')
+    parser.add_argument('-s', '--synonyms', action='store_true',
+                        help='display the synonyms of the requested word.')
+    parser.add_argument('-e', '--examples', action='store_true',
+                        help='display a phrase using the requested word.')
+    parser.add_argument('--spotify', choices=['configure', 'search'], default='search', nargs='?', const='search',
+                        help='use configure for passing your data and nothing to search the music (default: %(default)s).')
     return parser
+
 
 def main(word, lang, *args):
     word = word.encode('utf-8')
 
-    global sy
-    global ex
+    global sy  # synonyms
+    global ex  # examples
+    global spotify
 
     for arg in args:
         sy = arg[0]['synonyms']
         ex = arg[0]['examples']
+        spotify = arg[0]['spotify']
         break
 
     # upper() because in list of language.py all the abbreviation are uppercased.
     lang = lang.upper()
 
     if lang in language:
-       url = language[lang] + word.decode('utf-8')
-       meaning(url, synonyms=sy, examples=ex)
+        url = language[lang] + word.decode('utf-8')
+        meaning(url, synonyms=sy, examples=ex)
     else:
-       print("""
+        print("""
            select a valid language:
            en <english> | pt <portuguese>
            hi <hindi>   | es <spanish>
@@ -45,27 +56,31 @@ def main(word, lang, *args):
            tr <turkish>
        """)
 
+
 def meaning(url, **kwargs):
     header = {
         "Accept": "charset=utf-8"
-    }       
+    }
 
     response = requests.request('GET', url, headers=header)
-    
+
     data = json.loads(response.text.encode('utf-8'))
 
     for obj in data:
-        
-            meanings = obj['meanings'][0]['definitions']
-           
-            get_data('DEFINITIONS', meanings, 'definition')
 
-            if kwargs.get('examples'):
-                get_data('EXAMPLES', meanings, 'example')
+        meanings = obj['meanings'][0]['definitions']
 
-            if kwargs.get('synonyms'):
-                get_data('SYNONYMS', meanings, 'synonyms', j=0)
-                
+        # always show the definition - default
+        get_data('DEFINITIONS', meanings, 'definition')
+
+        if kwargs.get('examples'):
+            get_data('EXAMPLES', meanings, 'example')
+
+        if kwargs.get('synonyms'):
+            # get index of the synonym
+            get_data('SYNONYMS', meanings, 'synonyms', j=0)
+
+
 def get_data(title, array, key, **kwargs):
     try:
         i = 0
@@ -89,6 +104,7 @@ def get_data(title, array, key, **kwargs):
 
     except KeyError:
         return
+
 
 if __name__ == '__main__':
     parser = get_parser()
