@@ -4,8 +4,8 @@ import sys
 import json
 import requests
 import argparse
-from language import language
-#from dictionary.language import language
+#from language import language
+from dictionary.language import language
 
 
 def get_parser():
@@ -20,8 +20,6 @@ def get_parser():
                         help='display the synonyms of the requested word.')
     parser.add_argument('-e', '--examples', action='store_true',
                         help='display a phrase using the requested word.')
-    parser.add_argument('--spotify', choices=['configure', 'search'], default='search', nargs='?', const='search',
-                        help='use configure for passing your data and nothing to search the music (default: %(default)s).')
     return parser
 
 
@@ -30,12 +28,10 @@ def main(word, lang, *args):
 
     global sy  # synonyms
     global ex  # examples
-    global spotify
 
     for arg in args:
         sy = arg[0]['synonyms']
         ex = arg[0]['examples']
-        spotify = arg[0]['spotify']
         break
 
     # upper() because in list of language.py all the abbreviation are uppercased.
