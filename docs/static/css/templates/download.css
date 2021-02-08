@@ -1,0 +1,30 @@
+div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 30%;
+}
+
+div input {
+    padding: .6rem;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background: #dadada;
+    font-style: italic;
+}
+
+img.download {
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
+
+.link-install {
+    margin-top: 2rem;
+    color: white;
+}

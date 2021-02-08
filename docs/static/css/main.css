@@ -1,0 +1,24 @@
+body {
+    background-color: #363636;
+    font-family: 'ABeeZee', sans-serif;
+    color: #ffffff;
+}
+
+header {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    line-height: 42.55px;
+    font-size: 24px;
+    transition: text-decoration 1s;
+    color: #ffffff;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Layout -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="static/images/logo.png" type="image/x-icon">
+    <meta property="og:image" content="static/images/logo.png">
+    <!-- Css -->
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/images.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+    <!-- Page -->
+    <link rel="stylesheet" href="static/css/templates/index.css">
+    <title>Welcome to cli-dictionary!</title>
+</head>
+
+<body>
+    <header id="menu">
+        <nav>
+            <a href="/">[ Home ]</a>
+            <a href="/download">[ Download ]</a>
+            <a href="/about">[ About ]</a>
+        </nav>
+        <a href="https://github.com/ropoko/cli-dictionary">
+            <img src="{{ url_for('static', filename='images/git-icon.png') }}" alt="github" id="git-image">
+        </a>
+    </header>
+    <main>
+        <img src="static/images/logo.png" alt="logo" id="logo">
+        <h1>DICTIONARY</h1>
+    </main>
+
+    <footer>
+        <div>
+            <h4>Why should I use?</h4>
+            <p>
+                Because opening a browser to search for a word is an unnecessarily big work, so make it simple and don't
+                even close your terminal-work and remember the meaning of that word.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
