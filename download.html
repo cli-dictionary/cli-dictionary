@@ -14,35 +14,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
     <!-- Page -->
-    <link rel="stylesheet" href="static/css/templates/index.css">
-    <title>Welcome to cli-dictionary!</title>
+    <link rel="stylesheet" href="static/css/templates/download.css">
+    <title> cli-dictionary | Download</title>
 </head>
 
 <body>
     <header id="menu">
         <nav>
             <a href="/cli-dictionary">[ Home ]</a>
-            <a href="cli-dictionary/download.html">[ Download ]</a>
-            <a href="cli-dictionary/about.html">[ About ]</a>
+            <a href="/download.html">[ Download ]</a>
+            <a href="/about.html">[ About ]</a>
         </nav>
         <a href="https://github.com/ropoko/cli-dictionary">
             <img src="static/images/git-icon.png" alt="github" id="git-image">
         </a>
     </header>
     <main>
-        <img src="static/images/logo.png" alt="logo" id="logo">
-        <h1>DICTIONARY</h1>
+        <a href="https://snapcraft.io/cli-dictionary">
+            <img class="download" src="static/images/snapcraft-logo.png"
+                alt="download the snap">
+        </a>
+        <p> or simply </p>
+        <input type="text" value="$ sudo snap install cli-dictionary" readonly />
+        <a class="link-install" href="https://snapcraft.io/docs/getting-started">If you do not have snap installed yet,
+            click here</a>
     </main>
-
-    <footer>
-        <div>
-            <h4>Why should I use?</h4>
-            <p>
-                Because opening a browser to search for a word is an unnecessarily big work, so make it simple and don't
-                even close your terminal-work and remember the meaning of that word.
-            </p>
-        </div>
-    </footer>
 </body>
 
 </html>
