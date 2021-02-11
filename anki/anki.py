@@ -5,7 +5,7 @@ import requests
 # default url
 URL = 'http://localhost:8765'
 
-def main():
+def teste():
     print('hello from anki')
 
 
@@ -25,11 +25,23 @@ def createDeck():
         'action': 'createDeck',
         'version': 6,
         'params': {
-            'deck': 'English'
+            'deck': 'Cli-dictionary'
         }
     }
 
     return json
+
+def createSubDeck(lang):
+    json = {
+        'action': 'createDeck',
+        'version': 6,
+        'params': {
+            'deck': f'Cli-dictionary::{lang}'
+        }
+    }
+
+    return json
+
 
 
 def createCards():
@@ -52,4 +64,4 @@ def createCards():
 
 
 if __name__ == '__main__':
-    main()
+    teste()

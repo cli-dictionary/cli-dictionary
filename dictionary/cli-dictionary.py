@@ -7,7 +7,8 @@ import requests
 import argparse
 from language import language
 #from dictionary.language import language
-from anki import app 
+
+import anki
 
 
 def get_parser():
@@ -24,7 +25,8 @@ def get_parser():
                         help='display a phrase using the requested word.')
 
     group_anki = parser.add_argument_group('anki')
-    group_anki.add_argument('--type', help='select the type of card', choices=['basic', 'basic-reverse'])
+    group_anki.add_argument('--card', help='select the type of card', choices=['basic', 'basic-reverse'])
+    group_anki.add_argument('--profile', help='select the profile', type=str, nargs=1)
 
     return parser
 
@@ -34,8 +36,6 @@ def main(word, lang, *args):
 
     global sy  # synonyms
     global ex  # examples
-
-    app.main()
 
     for arg in args:
         sy = arg[0]['synonyms']
