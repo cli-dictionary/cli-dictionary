@@ -1,3 +1,4 @@
 .vscode/
 /dictionary/__pycache__
+/anki/__pycache__
 /dictionary/languages/__pycache__
