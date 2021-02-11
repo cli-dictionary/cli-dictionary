@@ -24,9 +24,11 @@ def get_parser():
     parser.add_argument('-e', '--examples', action='store_true',
                         help='display a phrase using the requested word.')
 
-    group_anki = parser.add_argument_group('anki')
-    group_anki.add_argument('--card', help='select the type of card', choices=['basic', 'basic-reverse'])
-    group_anki.add_argument('--profile', help='select the profile', type=str, nargs=1)
+    group_anki = parser.add_argument_group('Anki-Flashcards')
+    group_anki.add_argument(
+        '--card', help='select the type of card', choices=['basic', 'basic-reverse'])
+    group_anki.add_argument(
+        '--profile', help='select the profile', type=str, nargs=1)
 
     return parser
 
@@ -34,13 +36,14 @@ def get_parser():
 def main(word, lang, *args):
     word = word.encode('utf-8')
 
-    global sy  # synonyms
-    global ex  # examples
+    sy = ''  # synonyms
+    ex = ''  # examples
+    global Anki
 
     for arg in args:
         sy = arg[0]['synonyms']
         ex = arg[0]['examples']
-        break
+        Anki = arg[0]['card'] if arg[0]['profile'] == None else arg[0]['profile']
 
     # upper() because in list of language.py all the abbreviation are uppercased.
     lang = lang.upper()

@@ -5,8 +5,19 @@ import requests
 # default url
 URL = 'http://localhost:8765'
 
+
 def teste():
-    print('hello from anki')
+    r = requests.post(URL, json=IsDeckCreated())
+    print(r.json())
+
+
+def IsDeckCreated():
+    json = {
+        'action': 'deckNames',
+        'version': 6
+    }
+
+    return json
 
 
 def changeProfile(name):
@@ -31,6 +42,7 @@ def createDeck():
 
     return json
 
+
 def createSubDeck(lang):
     json = {
         'action': 'createDeck',
@@ -43,7 +55,6 @@ def createSubDeck(lang):
     return json
 
 
-
 def createCards():
     json = {
         'action': 'addNote',
@@ -51,7 +62,7 @@ def createCards():
         'params': {
             'note': {
                 'deckName': 'Cli-dictionary',
-                'modelName': 'Basic', # "Basic" or "Basic (and reversed card)"
+                'modelName': 'Basic',  # "Basic" or "Basic (and reversed card)"
                 'fields': {
                     'Front': 'life',
                     'Back': 'meaning of life'
