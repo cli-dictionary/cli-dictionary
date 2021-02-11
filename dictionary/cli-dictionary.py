@@ -1,11 +1,13 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import sys
 import json
 import requests
 import argparse
-#from language import language
-from dictionary.language import language
+from language import language
+#from dictionary.language import language
+from anki import app 
 
 
 def get_parser():
@@ -20,6 +22,10 @@ def get_parser():
                         help='display the synonyms of the requested word.')
     parser.add_argument('-e', '--examples', action='store_true',
                         help='display a phrase using the requested word.')
+
+    group_anki = parser.add_argument_group('anki')
+    group_anki.add_argument('--type', help='select the type of card', choices=['basic', 'basic-reverse'])
+
     return parser
 
 
@@ -28,6 +34,8 @@ def main(word, lang, *args):
 
     global sy  # synonyms
     global ex  # examples
+
+    app.main()
 
     for arg in args:
         sy = arg[0]['synonyms']
