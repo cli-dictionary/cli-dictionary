@@ -38,7 +38,8 @@ def main(word, lang, *args):
 
     sy = ''  # synonyms
     ex = ''  # examples
-    global Anki
+    Anki = ''
+    
 
     for arg in args:
         sy = arg[0]['synonyms']

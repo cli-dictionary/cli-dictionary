@@ -1,23 +1,29 @@
 #!/usr/bin/python3
 
 import requests
+import json
 
-# default url
 URL = 'http://localhost:8765'
 
 
-def teste():
-    r = requests.post(URL, json=IsDeckCreated())
-    print(r.json())
+def post_json(action):
+    return requests.post(URL, json=action)
 
 
 def IsDeckCreated():
-    json = {
+    req = {
         'action': 'deckNames',
         'version': 6
     }
 
-    return json
+    r = post_json(req)
+
+    formattedJson = json.dumps(r.json())
+
+    if 'Cli-dictionary' in formattedJson:
+        return True
+    else:
+        return False
 
 
 def changeProfile(name):
@@ -28,7 +34,9 @@ def changeProfile(name):
         },
         "version": 6
     }
-    return json
+
+    r = post_json(json)
+    return print(r.json())
 
 
 def createDeck():
@@ -40,7 +48,8 @@ def createDeck():
         }
     }
 
-    return json
+    r = post_json(json)
+    return print(r.json())
 
 
 def createSubDeck(lang):
@@ -52,7 +61,8 @@ def createSubDeck(lang):
         }
     }
 
-    return json
+    r = post_json(json)
+    return print(r.json())
 
 
 def createCards():
@@ -62,7 +72,8 @@ def createCards():
         'params': {
             'note': {
                 'deckName': 'Cli-dictionary',
-                'modelName': 'Basic',  # "Basic" or "Basic (and reversed card)"
+                # "Basic" or "Basic (and reversed card)"
+                'modelName': 'Basic',
                 'fields': {
                     'Front': 'life',
                     'Back': 'meaning of life'
@@ -71,8 +82,9 @@ def createCards():
         }
     }
 
-    return json
+    r = post_json(json)
+    return print(r.json())
 
 
 if __name__ == '__main__':
-    teste()
+    IsDeckCreated()
