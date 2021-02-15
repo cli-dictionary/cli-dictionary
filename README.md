@@ -63,6 +63,18 @@ then: `$ <word> <language>`
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo-new.gif)
 
 
+## To do List - Anki features
+- [] Create deck called "Cli-dictionary" if it hasn't been created yet
+
+- [] Create function to check if the deck is created or not
+
+- [] Option to change the profile before creating the deck
+
+- [] Create Subdecks for each language
+
+- [] Create cards with the following options - Basic, Basic and Reverse and Cloze Card
+
+
 ## :coffee: Contributing 
 - [Buy me a coffee](https://picpay.me/ropoko)
 - Pull Requests and issues are welcome
