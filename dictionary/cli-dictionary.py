@@ -5,9 +5,10 @@ import sys
 import json
 import requests
 import argparse
-from language import language
+import threading
+from random import randint
 # from dictionary.language import language
-
+from language import language
 import anki
 
 WORD_MEANING = []
@@ -73,7 +74,7 @@ def main(word, lang, *args):
         pass
     else:
         get_anki(profile=Anki['profile'], card=Anki['card'],
-                 lang=lang, word=word, meaning=WORD_MEANING)
+                 lang=lang, word=word.decode('utf-8'), meaning=WORD_MEANING)
 
 
 def meaning(url, **kwargs):
@@ -150,22 +151,33 @@ def get_anki(**kwargs):
     word = kwargs.get('word')
     meaning = kwargs.get('meaning')
 
+    rand_number = randint(1, 5)
+
     create_anki(lang=lang)
 
-    if profile == None:
-        anki.createCard(card, lang, word, meaning[0])
-        pass
-    elif card == None:
-        print('Oops! You should select a card type!')
-    else:
-        anki.changeProfile(profile)
+    try:
+        if profile == None:
+            anki.createCard(card, lang, word, meaning[rand_number])
+            return
+        elif card == None:
+            print('Oops! You should select a card type!')
+            return
+        else:
+            thread = threading.Thread(target=anki.changeProfile(profile))
 
-        # check if this new profile have the deck and subdecks
-        create_anki(lang=lang)
+            thread.start()
+            thread.join()
 
-        anki.createCard(card, lang, word, meaning)
-        print(
-            f'changing profile to "{profile}" and adding card type: "{card}".')
+            # check if this new profile have the deck and subdecks
+            create_anki(lang=lang)
+
+            anki.createCard(card, lang, word, meaning[rand_number])
+            print(
+                f'changing profile to "{profile}" and adding card type: "{card}".')
+            return
+    except (IndexError):
+        print('Oops!')
+        return
 
 
 def create_anki(**kwargs):

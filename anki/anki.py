@@ -96,23 +96,6 @@ def createCard(card_type, lang, word, meaning):
             }
         }
 
-    elif card_type == 'cloze':
-        json = {
-            'action': 'addNote',
-            'version': 6,
-            'params': {
-                'note': {
-                    'deckName': f'Cli-dictionary::{lang}',
-                    # Basic, Basic (and reversed card), Cloze
-                    'modelName': 'Cloze',
-                    'fields': {
-                        'Text': f'test {{c1::{word}}}',
-                        'Extra': meaning
-                    }
-                }
-            }
-        }
-
     else:
         print('Please insert a valid type: ')
         print(''' 
@@ -123,3 +106,19 @@ def createCard(card_type, lang, word, meaning):
         ''')
 
     action_post(json)
+
+# json = {
+#             'action': 'addNote',
+#             'version': 6,
+#             'params': {
+#                 'note': {
+#                     'deckName': f'Cli-dictionary::{lang}',
+#                     # Basic, Basic (and reversed card), Cloze
+#                     'modelName': 'Cloze',
+#                     'fields': {
+#                         'Text': f'test {{c1::{word}}}',
+#                         'Extra': meaning
+#                     }
+#                 }
+#             }
+#         }
