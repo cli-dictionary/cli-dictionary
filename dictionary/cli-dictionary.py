@@ -6,9 +6,11 @@ import json
 import requests
 import argparse
 from language import language
-#from dictionary.language import language
+# from dictionary.language import language
 
 import anki
+
+WORD_MEANING = []
 
 
 def get_parser():
@@ -26,9 +28,9 @@ def get_parser():
 
     group_anki = parser.add_argument_group('Anki-Flashcards')
     group_anki.add_argument(
-        '--card', help='select the type of card', choices=['basic', 'basic-reverse'])
+        '--profile', help='select the profile', type=str)
     group_anki.add_argument(
-        '--profile', help='select the profile', type=str, nargs=1)
+        '--card', help='select the type of card', choices=['basic', 'basic-reverse', 'cloze'])
 
     return parser
 
@@ -38,13 +40,16 @@ def main(word, lang, *args):
 
     sy = ''  # synonyms
     ex = ''  # examples
-    Anki = ''
-    
+    Anki = {}
 
     for arg in args:
         sy = arg[0]['synonyms']
         ex = arg[0]['examples']
-        Anki = arg[0]['card'] if arg[0]['profile'] == None else arg[0]['profile']
+
+        Anki = {
+            'profile': arg[0]['profile'],
+            'card': arg[0]['card']
+        }
 
     # upper() because in list of language.py all the abbreviation are uppercased.
     lang = lang.upper()
@@ -64,6 +69,12 @@ def main(word, lang, *args):
            tr <turkish>
        """)
 
+    if Anki['profile'] == None and Anki['card'] == None:
+        pass
+    else:
+        get_anki(profile=Anki['profile'], card=Anki['card'],
+                 lang=lang, word=word, meaning=WORD_MEANING)
+
 
 def meaning(url, **kwargs):
     header = {
@@ -79,14 +90,28 @@ def meaning(url, **kwargs):
         meanings = obj['meanings'][0]['definitions']
 
         # always show the definition - default
-        get_data('DEFINITIONS', meanings, 'definition')
+        get_meaning(meanings, 'definition')
 
         if kwargs.get('examples'):
             get_data('EXAMPLES', meanings, 'example')
 
         if kwargs.get('synonyms'):
-            # get index of the synonym
+            # j- get index of the synonym
             get_data('SYNONYMS', meanings, 'synonyms', j=0)
+
+
+def get_meaning(array_meanings, key):
+    print('DEFINITIONS ----------------------')
+
+    i = 0
+
+    for element in array_meanings:
+        i = i + 1
+        # print(f'{str(i)}. {element[key]}')
+        WORD_MEANING.append(f'{str(i)}. {element[key]}')
+
+    for m in WORD_MEANING:
+        print(m)
 
 
 def get_data(title, array, key, **kwargs):
@@ -112,6 +137,43 @@ def get_data(title, array, key, **kwargs):
 
     except KeyError:
         return
+
+
+def get_anki(**kwargs):
+    print('ANKI ----------------------')
+    # anki
+    profile = kwargs.get('profile')
+    card = kwargs.get('card')
+
+    # dictionary info
+    lang = kwargs.get('lang')
+    word = kwargs.get('word')
+    meaning = kwargs.get('meaning')
+
+    create_anki(lang=lang)
+
+    if profile == None:
+        anki.createCard(card, lang, word, meaning[0])
+        pass
+    elif card == None:
+        print('Oops! You should select a card type!')
+    else:
+        anki.changeProfile(profile)
+
+        # check if this new profile have the deck and subdecks
+        create_anki(lang=lang)
+
+        anki.createCard(card, lang, word, meaning)
+        print(
+            f'changing profile to "{profile}" and adding card type: "{card}".')
+
+
+def create_anki(**kwargs):
+    if anki.IsDeckCreated() == False:
+        anki.createDeck()
+
+    elif anki.IsSubDeckCreated(kwargs.get('lang')) == False:
+        anki.createSubDeck(kwargs.get('lang'))
 
 
 if __name__ == '__main__':
