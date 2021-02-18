@@ -68,13 +68,13 @@ then: `$ <word> <language>`
 
 
 ## To do List - Anki features
-- [ ] Create deck called "Cli-dictionary" if it hasn't been created yet
+- [x] Create deck called "Cli-dictionary" if it hasn't been created yet
 
-- [ ] Create function to check if the deck is created or not
+- [x] Create function to check if the deck is created or not
 
-- [ ] Option to change the profile before creating the deck
+- [x] Option to change the profile before creating the deck
 
-- [ ] Create Subdecks for each language
+- [x] Create Subdecks for each language
 
 - [ ] Create cards with the following options - Basic, Basic and Reverse and Cloze Card
 
