@@ -53,7 +53,11 @@ try versions in devmode from:
 
 or simply: `$ sudo snap install cli-dictionary`
 
+### Using Anki Features
 
+Just follow the steps in the [documentation](https://github.com/FooSoft/anki-connect#installation) (is pretty simple ;D)
+
+note: while you're using the dictionary to create cards, the anki app must be open, otherwise some weird errors will appear :P
 ## :rocket: Running
 
 command: `$ cli-dictionary`
