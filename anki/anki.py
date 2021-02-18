@@ -78,7 +78,7 @@ def createSubDeck(lang):
     action_post(json)
 
 
-def createCard(card_type, lang, word, meaning):
+def createCard(card_type, lang, word, meaning, **kwargs):
     if card_type in ['basic', 'basic-reverse']:
         json = {
             'action': 'addNote',
@@ -96,6 +96,32 @@ def createCard(card_type, lang, word, meaning):
             }
         }
 
+    elif card_type == 'cloze':
+        print('Oops! please try again later ;(')
+        return
+        # examples_str = '\n'.join(kwargs.get('examples'))
+
+        # print(kwargs.get('examples'))
+        # print(examples_str)
+        # return
+        # #new_word = ex.replace(word, f'{{c1::{word}}}')
+
+        # json = {
+        #     'action': 'addNote',
+        #     'version': 6,
+        #     'params': {
+        #         'note': {
+        #             'deckName': f'Cli-dictionary::{lang}',
+        #             # Basic, Basic (and reversed card), Cloze
+        #             'modelName': 'Cloze',
+        #             'fields': {
+        #                 'Text': '',
+        #                 'Extra': meaning
+        #             }
+        #         }
+        #     }
+        # }
+
     else:
         print('Please insert a valid type: ')
         print(''' 
@@ -106,19 +132,3 @@ def createCard(card_type, lang, word, meaning):
         ''')
 
     action_post(json)
-
-# json = {
-#             'action': 'addNote',
-#             'version': 6,
-#             'params': {
-#                 'note': {
-#                     'deckName': f'Cli-dictionary::{lang}',
-#                     # Basic, Basic (and reversed card), Cloze
-#                     'modelName': 'Cloze',
-#                     'fields': {
-#                         'Text': f'test {{c1::{word}}}',
-#                         'Extra': meaning
-#                     }
-#                 }
-#             }
-#         }

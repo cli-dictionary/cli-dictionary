@@ -12,6 +12,7 @@ from language import language
 import anki
 
 WORD_MEANING = []
+EXAMPLES = []
 
 
 def get_parser():
@@ -106,13 +107,13 @@ def get_meaning(array_meanings, key):
 
     i = 0
 
-    for element in array_meanings:
+    for element in array_meanings: 
         i = i + 1
-        # print(f'{str(i)}. {element[key]}')
         WORD_MEANING.append(f'{str(i)}. {element[key]}')
 
     for m in WORD_MEANING:
         print(m)
+
 
 
 def get_data(title, array, key, **kwargs):
@@ -125,7 +126,10 @@ def get_data(title, array, key, **kwargs):
         if j != 0:
             for element in array:
                 i = i + 1
-                print(f'{str(i)}. {element[key]}')
+                EXAMPLES.append(f'{str(i)}. {element[key]}')
+
+            for e in EXAMPLES:
+                print(e)
         else:
             for element in array:
                 i = i + 1
@@ -141,7 +145,7 @@ def get_data(title, array, key, **kwargs):
 
 
 def get_anki(**kwargs):
-    print('ANKI ----------------------')
+    print('ANKI LOG ----------------------')
     # anki
     profile = kwargs.get('profile')
     card = kwargs.get('card')
@@ -151,32 +155,31 @@ def get_anki(**kwargs):
     word = kwargs.get('word')
     meaning = kwargs.get('meaning')
 
-    rand_number = randint(1, 5)
+    len_meaning = len(meaning) - 1
+    rand_number = randint(0, len_meaning)
 
     create_anki(lang=lang)
 
-    try:
-        if profile == None:
-            anki.createCard(card, lang, word, meaning[rand_number])
-            return
-        elif card == None:
-            print('Oops! You should select a card type!')
-            return
-        else:
-            thread = threading.Thread(target=anki.changeProfile(profile))
+    if profile == None:
+        print(f'creating card type: "{card}", for current user.')
+        anki.createCard(card, lang, word, meaning[0])
+        return
+    elif card == None:
+        print('Oops! You should select a card type!')
+        return
+    else:
+        thread = threading.Thread(target=anki.changeProfile(profile))
+        thread.start()
 
-            thread.start()
-            thread.join()
+        # wait until change the profile
+        thread.join()
 
-            # check if this new profile have the deck and subdecks
-            create_anki(lang=lang)
+        # check if this new profile have the deck and subdecks
+        create_anki(lang=lang)
 
-            anki.createCard(card, lang, word, meaning[rand_number])
-            print(
-                f'changing profile to "{profile}" and adding card type: "{card}".')
-            return
-    except (IndexError):
-        print('Oops!')
+        anki.createCard(card, lang, word, meaning[rand_number])
+        print(
+            f'changing profile to "{profile}" and adding card type: "{card}".')
         return
 
 
