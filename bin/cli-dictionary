@@ -5,8 +5,14 @@ import sys
 import json
 import requests
 import argparse
-#from language import language
-from dictionary.language import language
+import threading
+from random import randint
+# from dictionary.language import language
+from language import language
+import anki
+
+WORD_MEANING = []
+EXAMPLES = []
 
 
 def get_parser():
@@ -21,19 +27,31 @@ def get_parser():
                         help='display the synonyms of the requested word.')
     parser.add_argument('-e', '--examples', action='store_true',
                         help='display a phrase using the requested word.')
+
+    group_anki = parser.add_argument_group('Anki-Flashcards')
+    group_anki.add_argument(
+        '--profile', help='select the profile', type=str)
+    group_anki.add_argument(
+        '--card', help='select the type of card', choices=['basic', 'basic-reverse', 'cloze'])
+
     return parser
 
 
 def main(word, lang, *args):
     word = word.encode('utf-8')
 
-    global sy  # synonyms
-    global ex  # examples
+    sy = ''  # synonyms
+    ex = ''  # examples
+    Anki = {}
 
     for arg in args:
         sy = arg[0]['synonyms']
         ex = arg[0]['examples']
-        break
+
+        Anki = {
+            'profile': arg[0]['profile'],
+            'card': arg[0]['card']
+        }
 
     # upper() because in list of language.py all the abbreviation are uppercased.
     lang = lang.upper()
@@ -53,6 +71,12 @@ def main(word, lang, *args):
            tr <turkish>
        """)
 
+    if Anki['profile'] == None and Anki['card'] == None:
+        pass
+    else:
+        get_anki(profile=Anki['profile'], card=Anki['card'],
+                 lang=lang, word=word.decode('utf-8'), meaning=WORD_MEANING)
+
 
 def meaning(url, **kwargs):
     header = {
@@ -68,14 +92,28 @@ def meaning(url, **kwargs):
         meanings = obj['meanings'][0]['definitions']
 
         # always show the definition - default
-        get_data('DEFINITIONS', meanings, 'definition')
+        get_meaning(meanings, 'definition')
 
         if kwargs.get('examples'):
             get_data('EXAMPLES', meanings, 'example')
 
         if kwargs.get('synonyms'):
-            # get index of the synonym
+            # j- get index of the synonym
             get_data('SYNONYMS', meanings, 'synonyms', j=0)
+
+
+def get_meaning(array_meanings, key):
+    print('DEFINITIONS ----------------------')
+
+    i = 0
+
+    for element in array_meanings: 
+        i = i + 1
+        WORD_MEANING.append(f'{str(i)}. {element[key]}')
+
+    for m in WORD_MEANING:
+        print(m)
+
 
 
 def get_data(title, array, key, **kwargs):
@@ -88,7 +126,10 @@ def get_data(title, array, key, **kwargs):
         if j != 0:
             for element in array:
                 i = i + 1
-                print(f'{str(i)}. {element[key]}')
+                EXAMPLES.append(f'{str(i)}. {element[key]}')
+
+            for e in EXAMPLES:
+                print(e)
         else:
             for element in array:
                 i = i + 1
@@ -101,6 +142,53 @@ def get_data(title, array, key, **kwargs):
 
     except KeyError:
         return
+
+
+def get_anki(**kwargs):
+    print('ANKI LOG ----------------------')
+    # anki
+    profile = kwargs.get('profile')
+    card = kwargs.get('card')
+
+    # dictionary info
+    lang = kwargs.get('lang')
+    word = kwargs.get('word')
+    meaning = kwargs.get('meaning')
+
+    len_meaning = len(meaning) - 1
+    rand_number = randint(0, len_meaning)
+
+    create_anki(lang=lang)
+
+    if profile == None:
+        print(f'creating card type: "{card}", for current user.')
+        anki.createCard(card, lang, word, meaning[0])
+        return
+    elif card == None:
+        print('Oops! You should select a card type!')
+        return
+    else:
+        thread = threading.Thread(target=anki.changeProfile(profile))
+        thread.start()
+
+        # wait until change the profile
+        thread.join()
+
+        # check if this new profile have the deck and subdecks
+        create_anki(lang=lang)
+
+        anki.createCard(card, lang, word, meaning[rand_number])
+        print(
+            f'changing profile to "{profile}" and adding card type: "{card}".')
+        return
+
+
+def create_anki(**kwargs):
+    if anki.IsDeckCreated() == False:
+        anki.createDeck()
+
+    elif anki.IsSubDeckCreated(kwargs.get('lang')) == False:
+        anki.createSubDeck(kwargs.get('lang'))
 
 
 if __name__ == '__main__':
