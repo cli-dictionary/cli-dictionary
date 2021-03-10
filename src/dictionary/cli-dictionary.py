@@ -1,16 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import sys
+import os, sys
 import json
 import requests
 import argparse
 import threading
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
+import anki
 from random import randint
 from language import language
-#from src.dictionary import language
-#from ..anki import anki
-
 
 def get_parser():
     parser = argparse.ArgumentParser(
@@ -60,10 +63,10 @@ def main(word, lang, *args):
 
         meaning(url)
 
-        if sy:
-            synonyms(url)
         if ex:
             examples(url)
+        if sy:
+            synonyms(url)
 
     else:
         print("""
@@ -77,10 +80,10 @@ def main(word, lang, *args):
            tr <turkish>
        """)
 
-    if Anki['profile'] == None and Anki['card'] == None:
-        pass
-    else:
-        get_anki(profile=Anki['profile'], card=Anki['card'], lang=lang, word=word.decode('utf-8'), meaning=WORD_MEANING)
+    #if Anki['profile'] == None and Anki['card'] == None:
+     #   pass
+    #else:
+     #   get_anki(profile=Anki['profile'], card=Anki['card'], lang=lang, word=word.decode('utf-8'), meaning=WORD_MEANING)
 
 
 def meaning(url):
@@ -172,7 +175,7 @@ def get_anki(**kwargs):
     len_meaning = len(meaning) - 1
     rand_number = randint(0, len_meaning)
 
-    create_anki(lang=lang)
+    create_anki(lang)
 
     if profile == None:
         print(f'creating card type: "{card}", for current user.')
@@ -189,7 +192,7 @@ def get_anki(**kwargs):
         thread.join()
 
         # check if this new profile have the deck and subdecks
-        create_anki(lang=lang)
+        create_anki(lang)
 
         anki.createCard(card, lang, word, meaning[rand_number])
         print(
@@ -197,16 +200,15 @@ def get_anki(**kwargs):
         return
 
 
-def create_anki(**kwargs):
+def create_anki(lang):
     if anki.IsDeckCreated() == False:
         anki.createDeck()
 
-    elif anki.IsSubDeckCreated(kwargs.get('lang')) == False:
-        anki.createSubDeck(kwargs.get('lang'))
+    elif anki.IsSubDeckCreated(lang) == False:
+        anki.createSubDeck(lang)
 
 
 if __name__ == '__main__':
     parser = get_parser()
     args = vars(parser.parse_args())
     main(sys.argv[1], sys.argv[2], [args])
-    #main('vie', 'fr', [args])
