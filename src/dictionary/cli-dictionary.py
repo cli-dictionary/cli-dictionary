@@ -146,14 +146,13 @@ def synonyms(url):
             i = 0
 
             for s in synonyms:
-                i += 1
-                print(f'{str(i)}. {s["synonyms"]}')
-
-            # i = 0
-
-            # for s in synonyms:
-            #     i += 1
-            #     print(f'{str(i)}. {s["synonyms"][i]}')
+                array_synonyms = s['synonyms']
+                for s_array in array_synonyms:
+                    i += 1
+                    if i == 11:
+                        return
+                    else:
+                        print(f'{str(i)}. {s_array}')
     except KeyError:
         return
 
