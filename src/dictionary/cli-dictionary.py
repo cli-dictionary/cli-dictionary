@@ -16,7 +16,6 @@ from random import randint
 from language import language
 
 WORD_MEANING = []
-WORD_SYNONYMS = []
 WORD_EXAMPLES = []
 
 def get_parser():
@@ -164,10 +163,7 @@ def synonyms(url):
                     if i == 11:
                         return
                     else:
-                        sy = f'{str(i)}. {s_array}'
-
-                        WORD_SYNONYMS.append(sy)
-                        print(sy)
+                        print(f'{str(i)}. {s_array}')
     except KeyError:
         return
 
@@ -181,14 +177,21 @@ def get_anki(card, lang, word, meaning, **kwargs):
 
     random_meaning = randint(0, len(meaning) - 1)
 
-    if profile == None:
-        print(f'creating card type: "{card}", for current user.')
-        anki.createCard(card, lang, word, meaning[random_meaning])
-        return
-    elif card == None: 
+    url = lang + word.decode('utf-8')
+
+    if card == None: 
         print('Oops! You should select a card type!')
         return
-    else: # change profile 
+    elif profile == None:
+        print(f'creating card type: "{card}", for current user.')
+
+        if card in ['basic', 'basic-reverse']:
+            anki.createCard(card, lang, word, meaning[random_meaning])
+            return
+        else: # cloze-card
+            anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
+            return
+    else:
         thread = threading.Thread(target=anki.changeProfile(profile))
         thread.start()
 
@@ -198,18 +201,21 @@ def get_anki(card, lang, word, meaning, **kwargs):
         # Check if the new profile already have the deck
         create_anki(lang)
 
-        anki.createCard(card, lang, word, meaning[random_meaning])
-        print(
-            f'changing profile to "{profile}" and adding card type: "{card}".')
+        print(f'changing profile to "{profile}" and adding card type: "{card}".')
+
+        if card in ['basic', 'basic-reverse']:
+            anki.createCard(card, lang, word, meaning[random_meaning])
+            return
+        else: # cloze-card
+            anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
+            return
 
 
 def create_anki(lang):
     if anki.IsDeckCreated() == False:
-        print('criando deck principal')
         anki.createDeck()
 
     if anki.IsSubDeckCreated(lang) == False:
-        print('criando subdeck')
         anki.createSubDeck(lang)
 
 

@@ -3,6 +3,7 @@
 
 import requests
 import json
+from random import randint
 
 URL = 'http://localhost:8765'
 
@@ -36,8 +37,6 @@ def IsSubDeckCreated(lang):
     r = action_post(req)
 
     formattedJson = json.dumps(r.json())
-
-    print(formattedJson)
 
     if f'Cli-dictionary::{lang}' in formattedJson:
         return True
@@ -103,14 +102,20 @@ def createCard(card_type, lang, word, meaning, **kwargs):
             }
 
         elif card_type == 'cloze':
-            print('Oops! please try again later ;(')
-            return
-            # examples_str = '\n'.join(kwargs.get('examples'))
+            if len(kwargs.get('examples')) == 0:
+                print('You need to add the parameter -e (examples) to create a cloze card')
+                return
 
-            # print(kwargs.get('examples'))
-            # print(examples_str)
-            # return
-            # #new_word = ex.replace(word, f'{{c1::{word}}}')
+            examples = []
+
+            for exs in kwargs.get('examples'):
+                if word in exs:
+                    examples.append(exs)
+
+            random_example = randint(0, len(examples) - 1)
+
+            ex = examples[random_example]
+            new_word = ex.replace(word, '{{' + f'c1::{word}' + '}}')
 
             json = {
                 'action': 'addNote',
@@ -121,8 +126,8 @@ def createCard(card_type, lang, word, meaning, **kwargs):
                         # Basic, Basic (and reversed card), Cloze
                         'modelName': 'Cloze',
                         'fields': {
-                            'Text': '',
-                            'Extra': meaning
+                            'Text': new_word,
+                            'Extra': new_word
                         }
                     }
                 }
