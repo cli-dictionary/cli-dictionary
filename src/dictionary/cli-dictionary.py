@@ -11,9 +11,13 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-import anki
+from anki import anki
 from random import randint
 from language import language
+
+WORD_MEANING = []
+WORD_SYNONYMS = []
+WORD_EXAMPLES = []
 
 def get_parser():
     parser = argparse.ArgumentParser(
@@ -67,6 +71,10 @@ def main(word, lang, *args):
             examples(url)
         if sy:
             synonyms(url)
+        if Anki['card'] == None:
+            pass
+        else:
+            get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
 
     else:
         print("""
@@ -79,11 +87,6 @@ def main(word, lang, *args):
            zh <chinese> | ar <arabic>
            tr <turkish>
        """)
-
-    #if Anki['profile'] == None and Anki['card'] == None:
-     #   pass
-    #else:
-     #   get_anki(profile=Anki['profile'], card=Anki['card'], lang=lang, word=word.decode('utf-8'), meaning=WORD_MEANING)
 
 
 def meaning(url):
@@ -105,7 +108,10 @@ def meaning(url):
 
         for m in meanings:
             i += 1
-            print(f'{str(i)}. {m["definition"]}')
+            mean = f'{str(i)}. {m["definition"]}'
+
+            WORD_MEANING.append(mean)
+            print(mean)
 
 
 def examples(url):
@@ -127,7 +133,10 @@ def examples(url):
 
         for e in examples:
             i += 1
-            print(f'{str(i)}. {e["example"]}')
+            ex = f'{str(i)}. {e["example"]}'
+
+            WORD_EXAMPLES.append(ex)
+            print(ex)
 
 
 def synonyms(url):
@@ -155,56 +164,52 @@ def synonyms(url):
                     if i == 11:
                         return
                     else:
-                        print(f'{str(i)}. {s_array}')
+                        sy = f'{str(i)}. {s_array}'
+
+                        WORD_SYNONYMS.append(sy)
+                        print(sy)
     except KeyError:
         return
 
 
-
-def get_anki(**kwargs):
+def get_anki(card, lang, word, meaning, **kwargs):
     print('ANKI LOG ----------------------')
-    # anki
+    
     profile = kwargs.get('profile')
-    card = kwargs.get('card')
-
-    # dictionary info
-    lang = kwargs.get('lang')
-    word = kwargs.get('word')
-    meaning = kwargs.get('meaning')
-
-    len_meaning = len(meaning) - 1
-    rand_number = randint(0, len_meaning)
 
     create_anki(lang)
 
+    random_meaning = randint(0, len(meaning) - 1)
+
     if profile == None:
         print(f'creating card type: "{card}", for current user.')
-        anki.createCard(card, lang, word, meaning[0])
+        anki.createCard(card, lang, word, meaning[random_meaning])
         return
-    elif card == None:
+    elif card == None: 
         print('Oops! You should select a card type!')
         return
-    else:
+    else: # change profile 
         thread = threading.Thread(target=anki.changeProfile(profile))
         thread.start()
 
         # wait until change the profile
         thread.join()
 
-        # check if this new profile have the deck and subdecks
+        # Check if the new profile already have the deck
         create_anki(lang)
 
-        anki.createCard(card, lang, word, meaning[rand_number])
+        anki.createCard(card, lang, word, meaning[random_meaning])
         print(
             f'changing profile to "{profile}" and adding card type: "{card}".')
-        return
 
 
 def create_anki(lang):
     if anki.IsDeckCreated() == False:
+        print('criando deck principal')
         anki.createDeck()
 
-    elif anki.IsSubDeckCreated(lang) == False:
+    if anki.IsSubDeckCreated(lang) == False:
+        print('criando subdeck')
         anki.createSubDeck(lang)
 
 
