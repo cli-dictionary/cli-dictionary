@@ -38,13 +38,31 @@
 | Turkish | tr |
 
 ## Features
-#### Examples 
+### Setting default language
+`$ cli-dictionary --lang-default <lang>`
+
+after that, you don't need to type the language to search a word, example:
+`$ cli-dictionary <word>`
+
+note: in all the examples below, the '<lang>' can be omitted.
+
+### Examples
 `$ cli-dictionary <word> <lang> -e` or `$ cli-dictionary <word> <lang> --examples`
 
-#### Synonyms
+### Synonyms
 `$ cli-dictionary <word> <lang> -s` or `$ cli-dictionary <word> <lang> --synonyms`
 
-you also can do both: `$ cli-dictionary <word> <lang> -se`
+### Anki - Flashcards
+- card-types: basic, basic-reverse and cloze.
+- if your profile name have spaces, like: "User name", you need to use quote marks.
+
+note: you don't need to create the deck and subdecks, the app does it itself.
+
+#### Creating card
+`$ cli-dictionary <word> <lang> --card <type>`
+
+#### Changing profile before creating the card
+`$ cli-dictionary <word> <lang> --profile "User name" --card <type>`
 
 ## :zap: Installing
 try versions in devmode from:
@@ -65,19 +83,6 @@ command: `$ cli-dictionary`
 then: `$ <word> <language>`
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo-new.gif)
-
-
-## To do List - Anki features
-- [x] Create deck called "Cli-dictionary" if it hasn't been created yet
-
-- [x] Create function to check if the deck is created or not
-
-- [x] Option to change the profile before creating the deck
-
-- [x] Create Subdecks for each language
-
-- [ ] Create cards with the following options - Basic, Basic and Reverse and Cloze Card
-
 
 ## :coffee: Contributing 
 - [Buy me a coffee](https://picpay.me/ropoko)
