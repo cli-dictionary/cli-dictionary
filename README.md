@@ -44,7 +44,7 @@
 after that, you don't need to type the language to search a word, example:
 `$ cli-dictionary <word>`
 
-note: in all the examples below, the "<lang>" can be omitted.
+note: in all the examples below, the `<lang>` can be omitted.
 
 ### Synonyms
 `$ cli-dictionary <word> <lang> -s` or `$ cli-dictionary <word> <lang> --synonyms`
