@@ -21,16 +21,16 @@ WORD_EXAMPLES = []
 def get_parser():
     parser = argparse.ArgumentParser(
         prog='cli-dictionary', description='welcome to cli-dictionary, never use a browser again to get a word meaning ;)')
-    parser.add_argument('word', type=str, help='the word to be searched.')
+    parser.add_argument('word', type=str, help='the word to be searched.', default=None, nargs='?')
     parser.add_argument(
-        'lang', type=str, help='the language of the requested word.')
+        'lang', type=str, help='the language of the requested word.', nargs='?', default='')
     parser.add_argument('-v', '--version', action='version',
                         version='%(prog)s 2.3.1')
     parser.add_argument('-s', '--synonyms', action='store_true',
                         help='display the synonyms of the requested word.')
     parser.add_argument('-e', '--examples', action='store_true',
                         help='display a phrase using the requested word.')
-
+    parser.add_argument('--lang-default', default=None, help='Define the default language to search the words.')
     group_anki = parser.add_argument_group('Anki-Flashcards')
     group_anki.add_argument(
         '--profile', help='select the profile', type=str)
@@ -40,9 +40,16 @@ def get_parser():
     return parser
 
 
-def main(word, lang, *args):
+def main(word, *args):
     word = word.encode('utf-8')
 
+    lang_file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/default_lang.json'
+
+    with open(lang_file) as file:
+        lang_json = json.load(file)
+        default_lang = lang_json['default_lang']
+    
+    lang = ''
     sy = ''  # synonyms
     ex = ''  # examples
     Anki = {}
@@ -50,6 +57,15 @@ def main(word, lang, *args):
     for arg in args:
         sy = arg[0]['synonyms']
         ex = arg[0]['examples']
+        
+        if arg[0]['lang_default'] != None:
+            define_lang(arg[0]['lang_default'])
+            return
+
+        if arg[0]['lang'] == '':
+            lang = default_lang
+        else:
+            lang = arg[0]['lang']
 
         Anki = {
             'profile': arg[0]['profile'],
@@ -57,35 +73,40 @@ def main(word, lang, *args):
         }
 
         break
-
+    
     # upper() because in list of language.py all the abbreviation are uppercased.
     lang = lang.upper()
 
-    if lang in language:
-        url = language[lang] + word.decode('utf-8')
+    try:
+        if lang in language:
+            url = language[lang] + word.decode('utf-8')
 
-        meaning(url)
+            meaning(url)
 
-        if ex:
-            examples(url)
-        if sy:
-            synonyms(url)
-        if Anki['card'] == None:
-            pass
+            if ex:
+                examples(url)
+            if sy:
+                synonyms(url)
+            if Anki['card'] == None:
+                pass
+            else:
+                get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
+
         else:
-            get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
+            print("""
+            select a valid language:
+            en <english> | pt <portuguese>
+            hi <hindi>   | es <spanish>
+            fr <french>  | ja <japanese>
+            ru <russian> | de <german>
+            it <italian> | ko <korean>
+            zh <chinese> | ar <arabic>
+            tr <turkish>
+        """)
+    except TypeError:
+        print("Sorry, We cannot find this word! Verify if you're typing the correct language.")
+        return
 
-    else:
-        print("""
-           select a valid language:
-           en <english> | pt <portuguese>
-           hi <hindi>   | es <spanish>
-           fr <french>  | ja <japanese>
-           ru <russian> | de <german>
-           it <italian> | ko <korean>
-           zh <chinese> | ar <arabic>
-           tr <turkish>
-       """)
 
 
 def meaning(url):
@@ -219,7 +240,23 @@ def create_anki(lang):
         anki.createSubDeck(lang)
 
 
+def define_lang(lang):
+    lang_file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/default_lang.json'
+
+    with open(lang_file, 'r+') as file:
+        json_data = json.load(file)
+        stringfied = json.dumps(json_data)
+
+        old_lang = json_data['default_lang']
+
+        file.seek(0)
+        file.truncate()
+
+        file.write(stringfied.replace(old_lang, lang))
+
+    return
+
 if __name__ == '__main__':
     parser = get_parser()
     args = vars(parser.parse_args())
-    main(sys.argv[1], sys.argv[2], [args])
+    main(sys.argv[1], [args])
