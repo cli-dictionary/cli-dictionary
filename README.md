@@ -53,7 +53,11 @@ try versions in devmode from:
 
 or simply: `$ sudo snap install cli-dictionary`
 
+### Using Anki Features
 
+Just follow the steps in the [documentation](https://github.com/FooSoft/anki-connect#installation) (is pretty simple ;D)
+
+note: while you're using the dictionary to create cards, the anki app must be open, otherwise some weird errors will appear :P
 ## :rocket: Running
 
 command: `$ cli-dictionary`
@@ -61,6 +65,18 @@ command: `$ cli-dictionary`
 then: `$ <word> <language>`
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo-new.gif)
+
+
+## To do List - Anki features
+- [x] Create deck called "Cli-dictionary" if it hasn't been created yet
+
+- [x] Create function to check if the deck is created or not
+
+- [x] Option to change the profile before creating the deck
+
+- [x] Create Subdecks for each language
+
+- [ ] Create cards with the following options - Basic, Basic and Reverse and Cloze Card
 
 
 ## :coffee: Contributing 

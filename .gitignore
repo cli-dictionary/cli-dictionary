@@ -1,3 +1,5 @@
 .vscode/
-/dictionary/__pycache__
-/dictionary/languages/__pycache__
+/src/dictionary/__pycache__
+/src/anki/__pycache__
+/src/dictionary/languages/__pycache__
+venv/
