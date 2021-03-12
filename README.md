@@ -44,13 +44,13 @@
 after that, you don't need to type the language to search a word, example:
 `$ cli-dictionary <word>`
 
-note: in all the examples below, the '<lang>' can be omitted.
-
-### Examples
-`$ cli-dictionary <word> <lang> -e` or `$ cli-dictionary <word> <lang> --examples`
+note: in all the examples below, the <lang> can be omitted.
 
 ### Synonyms
 `$ cli-dictionary <word> <lang> -s` or `$ cli-dictionary <word> <lang> --synonyms`
+
+### Examples
+`$ cli-dictionary <word> <lang> -e` or `$ cli-dictionary <word> <lang> --examples`
 
 ### Anki - Flashcards
 - card-types: basic, basic-reverse and cloze.
