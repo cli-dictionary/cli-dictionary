@@ -44,7 +44,7 @@
 after that, you don't need to type the language to search a word, example:
 `$ cli-dictionary <word>`
 
-note: in all the examples below, the <lang> can be omitted.
+note: in all the examples below, the "<lang>" can be omitted.
 
 ### Synonyms
 `$ cli-dictionary <word> <lang> -s` or `$ cli-dictionary <word> <lang> --synonyms`
@@ -78,9 +78,7 @@ Just follow the steps in the [documentation](https://github.com/FooSoft/anki-con
 note: while you're using the dictionary to create cards, the anki app must be open, otherwise some weird errors will appear :P
 ## :rocket: Running
 
-command: `$ cli-dictionary`
-
-then: `$ <word> <language>`
+command: `$ cli-dictionary <word> <lang>`
 
 ![](https://github.com/ropoko/cli-dictionary/blob/main/assets/demo-new.gif)
 
