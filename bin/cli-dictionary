@@ -87,7 +87,7 @@ def main(word, *args):
                 examples(url)
             if sy:
                 synonyms(url)
-            if Anki['card'] == None:
+            if Anki['card'] is None:
                 pass
             else:
                 get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
@@ -198,12 +198,10 @@ def get_anki(card, lang, word, meaning, **kwargs):
 
     random_meaning = randint(0, len(meaning) - 1)
 
-    url = lang + word.decode('utf-8')
-
-    if card == None: 
+    if card is None: 
         print('Oops! You should select a card type!')
         return
-    elif profile == None:
+    elif profile is None:
         print(f'creating card type: "{card}", for current user.')
 
         if card in ['basic', 'basic-reverse']:
