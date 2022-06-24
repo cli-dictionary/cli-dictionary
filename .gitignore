@@ -2,4 +2,7 @@
 /src/dictionary/__pycache__
 /src/anki/__pycache__
 /src/dictionary/languages/__pycache__
-venv/
+venv
+build
+dist
+cli_dictionary.egg-info
