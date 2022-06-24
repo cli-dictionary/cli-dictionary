@@ -1,13 +1,13 @@
-#!/usr/bin/python3
+from setuptools import setup, find_packages
 
-from setuptools import setup
+setup (
+	name='cli-dictionary',
+	version='2.3.2',
+	description='dictionary for command line, for now.',
+	author='Ropoko',
+	author_email='rodrigostramantinoli@gmail.com ',
 
-setup(
-    name='cli-dictionary',
-    version='2.3.2',
-    description='cli-dictionary',
-    packages = ['dictionary, anki'],
-    author='Ropoko',
-    author_email='rodrigostramantinoli@gmail.com ',
-    scripts=['bin/cli-dictionary'],
+	packages=find_packages(),
+	install_requires=['requests'],
+	scripts=['src/dictionary/cli-dictionary.py', 'src/anki/anki.py']
 )
