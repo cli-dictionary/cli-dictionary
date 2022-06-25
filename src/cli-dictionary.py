@@ -12,15 +12,12 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-from anki import anki
+# from anki import anki
 from random import randint
 from language import language
 
 WORD_MEANING = []
 WORD_EXAMPLES = []
-
-# def get_parser():
-# 	return Args()
 
 
 def main(word, *args):
@@ -174,53 +171,53 @@ def synonyms(url):
         return
 
 
-def get_anki(card, lang, word, meaning, **kwargs):
-    print('ANKI LOG ----------------------')
+# def get_anki(card, lang, word, meaning, **kwargs):
+#     print('ANKI LOG ----------------------')
 
-    profile = kwargs.get('profile')
+#     profile = kwargs.get('profile')
 
-    create_anki(lang)
+#     create_anki(lang)
 
-    random_meaning = randint(0, len(meaning) - 1)
+#     random_meaning = randint(0, len(meaning) - 1)
 
-    if card is None:
-        print('Oops! You should select a card type!')
-        return
-    elif profile is None:
-        print(f'creating card type: "{card}", for current user.')
+#     if card is None:
+#         print('Oops! You should select a card type!')
+#         return
+#     elif profile is None:
+#         print(f'creating card type: "{card}", for current user.')
 
-        if card in ['basic', 'basic-reverse']:
-            anki.createCard(card, lang, word, meaning[random_meaning])
-            return
-        else: # cloze-card
-            anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
-            return
-    else:
-        thread = threading.Thread(target=anki.changeProfile(profile))
-        thread.start()
+#         if card in ['basic', 'basic-reverse']:
+#             anki.createCard(card, lang, word, meaning[random_meaning])
+#             return
+#         else: # cloze-card
+#             anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
+#             return
+#     else:
+#         thread = threading.Thread(target=anki.changeProfile(profile))
+#         thread.start()
 
-        # wait until change the profile
-        thread.join()
+#         # wait until change the profile
+#         thread.join()
 
-        # Check if the new profile already have the deck
-        create_anki(lang)
+#         # Check if the new profile already have the deck
+#         create_anki(lang)
 
-        print(f'changing profile to "{profile}" and adding card type: "{card}".')
+#         print(f'changing profile to "{profile}" and adding card type: "{card}".')
 
-        if card in ['basic', 'basic-reverse']:
-            anki.createCard(card, lang, word, meaning[random_meaning])
-            return
-        else: # cloze-card
-            anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
-            return
+#         if card in ['basic', 'basic-reverse']:
+#             anki.createCard(card, lang, word, meaning[random_meaning])
+#             return
+#         else: # cloze-card
+#             anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
+#             return
 
 
-def create_anki(lang):
-    if anki.IsDeckCreated() == False:
-        anki.createDeck()
+# def create_anki(lang):
+    # if anki.IsDeckCreated() == False:
+    #     anki.createDeck()
 
-    if anki.IsSubDeckCreated(lang) == False:
-        anki.createSubDeck(lang)
+    # if anki.IsSubDeckCreated(lang) == False:
+    #     anki.createSubDeck(lang)
 
 
 def define_lang(lang):

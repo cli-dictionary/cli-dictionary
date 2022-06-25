@@ -4,7 +4,7 @@ class Args():
 	@staticmethod
 	def get_parser():
 		parser = ArgumentParser(
-			prog='cli-dictionary',
+			prog='clid',
 			description='welcome to cli-dictionary, never use a browser again to get a word meaning ;)'
 		)
 
