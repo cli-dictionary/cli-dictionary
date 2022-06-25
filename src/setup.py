@@ -9,5 +9,5 @@ setup (
 
 	packages=find_packages(),
 	install_requires=['requests'],
-	scripts=['src/dictionary/cli-dictionary.py', 'src/anki/anki.py']
+	scripts=['src/cli-dictionary.py', 'src/anki/anki.py']
 )

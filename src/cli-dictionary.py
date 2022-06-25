@@ -4,8 +4,9 @@
 import os, sys
 import json
 import requests
-import argparse
+from args import Args
 import threading
+from argparse import ArgumentParser
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -18,94 +19,78 @@ from language import language
 WORD_MEANING = []
 WORD_EXAMPLES = []
 
-def get_parser():
-    parser = argparse.ArgumentParser(
-        prog='cli-dictionary', description='welcome to cli-dictionary, never use a browser again to get a word meaning ;)')
-    parser.add_argument('word', type=str, help='the word to be searched.', default=None, nargs='?')
-    parser.add_argument(
-        'lang', type=str, help='the language of the requested word.', nargs='?', default='')
-    parser.add_argument('-v', '--version', action='version',
-                        version='%(prog)s 2.3.1')
-    parser.add_argument('-s', '--synonyms', action='store_true',
-                        help='display the synonyms of the requested word.')
-    parser.add_argument('-e', '--examples', action='store_true',
-                        help='display a phrase using the requested word.')
-    parser.add_argument('--lang-default', default=None, help='Define the default language to search the words.')
-    group_anki = parser.add_argument_group('Anki-Flashcards')
-    group_anki.add_argument(
-        '--profile', help='select the profile', type=str)
-    group_anki.add_argument(
-        '--card', help='select the type of card', choices=['basic', 'basic-reverse', 'cloze'])
-
-    return parser
+# def get_parser():
+# 	return Args()
 
 
 def main(word, *args):
-    word = word.encode('utf-8')
+		word = word.encode('utf-8')
 
-    lang_file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/default_lang.json'
+    # lang_file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/default_lang.json'
 
-    with open(lang_file) as file:
-        lang_json = json.load(file)
-        default_lang = lang_json['default_lang']
-    
-    lang = ''
-    sy = ''  # synonyms
-    ex = ''  # examples
-    Anki = {}
+    #with open(lang_file) as file:
+		#    lang_json = json.load(file)
+		#    default_lang = lang_json['default_lang']
 
-    for arg in args:
-        sy = arg[0]['synonyms']
-        ex = arg[0]['examples']
-        
-        if arg[0]['lang_default'] != None:
-            define_lang(arg[0]['lang_default'])
-            return
+		default_lang = 'en'
 
-        if arg[0]['lang'] == '':
-            lang = default_lang
-        else:
-            lang = arg[0]['lang']
+		lang = 'en'
+		sy = ''  # synonyms
+		ex = ''  # examples
+		Anki = {}
 
-        Anki = {
-            'profile': arg[0]['profile'],
-            'card': arg[0]['card']
-        }
+		for arg in args:
+				sy = arg[0]['synonyms']
+				ex = arg[0]['examples']
 
-        break
-    
-    # upper() because in list of language.py all the abbreviation are uppercased.
-    lang = lang.upper()
+				if arg[0]['lang_default'] != None:
+						define_lang(arg[0]['lang_default'])
+						return
 
-    try:
-        if lang in language:
-            url = language[lang] + word.decode('utf-8')
+				if arg[0]['lang'] == '':
+						lang = default_lang
+				else:
+						lang = arg[0]['lang']
 
-            meaning(url)
+				Anki = {
+						'profile': arg[0]['profile'],
+						'card': arg[0]['card']
+				}
 
-            if ex:
-                examples(url)
-            if sy:
-                synonyms(url)
-            if Anki['card'] is None:
-                pass
-            else:
-                get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
+				break
 
-        else:
-            print("""
-            select a valid language:
-            en <english> | pt <portuguese>
-            hi <hindi>   | es <spanish>
-            fr <french>  | ja <japanese>
-            ru <russian> | de <german>
-            it <italian> | ko <korean>
-            zh <chinese> | ar <arabic>
-            tr <turkish>
-        """)
-    except TypeError:
-        print("Sorry, We cannot find this word! Verify if you're typing the correct language.")
-        return
+		# upper() because in list of language.py all the abbreviation are uppercased.
+		lang = lang.upper()
+
+		try:
+				if lang in language:
+						url = language[lang] + word.decode('utf-8')
+
+						meaning(url)
+
+						if ex:
+								examples(url)
+						if sy:
+								synonyms(url)
+						# if Anki['card'] is None:
+						# 		pass
+						# else:
+						# 		get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
+
+				else:
+						print("""
+						select a valid language:
+						en <english> | pt <portuguese>
+						hi <hindi>   | es <spanish>
+						fr <french>  | ja <japanese>
+						ru <russian> | de <german>
+						it <italian> | ko <korean>
+						zh <chinese> | ar <arabic>
+						tr <turkish>
+				""")
+		except TypeError:
+				print("Sorry, We cannot find this word! Verify if you're typing the correct language.")
+				return
 
 
 
@@ -191,14 +176,14 @@ def synonyms(url):
 
 def get_anki(card, lang, word, meaning, **kwargs):
     print('ANKI LOG ----------------------')
-    
+
     profile = kwargs.get('profile')
 
     create_anki(lang)
 
     random_meaning = randint(0, len(meaning) - 1)
 
-    if card is None: 
+    if card is None:
         print('Oops! You should select a card type!')
         return
     elif profile is None:
@@ -255,6 +240,7 @@ def define_lang(lang):
     return
 
 if __name__ == '__main__':
-    parser = get_parser()
-    args = vars(parser.parse_args())
-    main(sys.argv[1], [args])
+		parser = Args.get_parser()
+		args = vars(parser.parse_args())
+		# main('apple', [args])
+		main(sys.argv[1], [args])
