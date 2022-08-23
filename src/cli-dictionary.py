@@ -1,243 +1,78 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
-import os, sys
 import json
+import os
+import sys
+
+import iterfzf as fzf
 import requests
+import rich
+from rich.console import Console
+
+import configs.config as settings
 from args import Args
-import threading
-from argparse import ArgumentParser
+from configs.words import words
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-# from anki import anki
-from random import randint
-from language import language
-
-WORD_MEANING = []
-WORD_EXAMPLES = []
-
-
-def main(word, *args):
-		word = word.encode('utf-8')
-
-    # lang_file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/default_lang.json'
-
-    #with open(lang_file) as file:
-		#    lang_json = json.load(file)
-		#    default_lang = lang_json['default_lang']
-
-		default_lang = 'en'
-
-		lang = 'en'
-		sy = ''  # synonyms
-		ex = ''  # examples
-		Anki = {}
-
-		for arg in args:
-				sy = arg[0]['synonyms']
-				ex = arg[0]['examples']
-
-				if arg[0]['lang_default'] != None:
-						define_lang(arg[0]['lang_default'])
-						return
-
-				if arg[0]['lang'] == '':
-						lang = default_lang
-				else:
-						lang = arg[0]['lang']
-
-				Anki = {
-						'profile': arg[0]['profile'],
-						'card': arg[0]['card']
-				}
-
-				break
-
-		# upper() because in list of language.py all the abbreviation are uppercased.
-		lang = lang.upper()
-
-		try:
-				if lang in language:
-						url = language[lang] + word.decode('utf-8')
-
-						meaning(url)
-
-						if ex:
-								examples(url)
-						if sy:
-								synonyms(url)
-						# if Anki['card'] is None:
-						# 		pass
-						# else:
-						# 		get_anki(Anki['card'], lang, word, WORD_MEANING, profile=Anki['profile'])
-
-				else:
-						print("""
-						select a valid language:
-						en <english> | pt <portuguese>
-						hi <hindi>   | es <spanish>
-						fr <french>  | ja <japanese>
-						ru <russian> | de <german>
-						it <italian> | ko <korean>
-						zh <chinese> | ar <arabic>
-						tr <turkish>
-				""")
-		except TypeError:
-				print("Sorry, We cannot find this word! Verify if you're typing the correct language.")
-				return
+def print_lang_not_found():
+    print("""
+	    Select a valid language:
+	    en <English> | pt <Portuguese>
+	    hi <Hindi>   | es <Spanish>
+	    fr <French>  | ja <Japanese>
+	    ru <Russian> | de <German>
+	    it <Italian> | ko <Korean>
+	    zh <Chinese> | ar <Arabic>
+	    tr <Turkish>""")
 
 
+def print_results(word, lang, sy: bool, ex: bool):
+    if lang in settings.API.keys():
+        url = settings.API[lang] + word
+        print_definition(url, sy, ex)
+    else:
+        print_lang_not_found()
 
-def meaning(url):
+
+def get_response(url):
     header = {
-        "Accept": "charset=utf-8"
+        "Accept": "charset=utf-8",
+        "Content-Type": "application/json"
     }
-
     response = requests.request('GET', url, headers=header)
-
-    data = json.loads(response.text.encode('utf-8'))
-
-    for obj in data:
-
-        meanings = obj['meanings'][0]['definitions']
-
-        print('DEFINITIONS ----------------------')
-
-        i = 0
-
-        for m in meanings:
-            i += 1
-            mean = f'{str(i)}. {m["definition"]}'
-
-            WORD_MEANING.append(mean)
-            print(mean)
+    data = json.loads(response.text)
+    return data
 
 
-def examples(url):
-    header = {
-        "Accept": "charset=utf-8"
-    }
-
-    response = requests.request('GET', url, headers=header)
-
-    data = json.loads(response.text.encode('utf-8'))
-
-    for obj in data:
-
-        examples = obj['meanings'][0]['definitions']
-
-        print('EXAMPLES ----------------------')
-
-        i = 0
-
-        for e in examples:
-            i += 1
-            ex = f'{str(i)}. {e["example"]}'
-
-            WORD_EXAMPLES.append(ex)
-            print(ex)
+def print_meanings(meaning, iter_num):
+    partOfSpeech : str = meaning['partOfSpeech']
+    rich.print("[bold][white]{}. {}[/white][/bold]".format(iter_num, partOfSpeech.upper()))
+    definitions = meaning['definitions']
+    for idx, definition in enumerate(definitions, 1):
+        rich.print("\t[green]{}. {}[/green]".format(idx, definition['definition']))
 
 
-def synonyms(url):
-    try:
-        header = {
-            "Accept": "charset=utf-8"
-        }
+def print_definition(url, sy, ex):
+    data = get_response(url)
+    meanings = data[0]['meanings']
+    for index, meaning in enumerate(meanings, 1):
+        print_meanings(meaning, index)
 
-        response = requests.request('GET', url, headers=header)
+def main(word, args):
+    lang = os.getenv('CLI_DICT_DEFAULT_LANG', settings.DEFAULT_LANG)
+    if word == '' or word == None:
+        word = fzf.iterfzf(words)
 
-        data = json.loads(response.text.encode('utf-8'))
-
-        for obj in data:
-
-            synonyms = obj['meanings'][0]['definitions']
-
-            print('SYNONYMS ----------------------')
-
-            i = 0
-
-            for s in synonyms:
-                array_synonyms = s['synonyms']
-                for s_array in array_synonyms:
-                    i += 1
-                    if i == 11:
-                        return
-                    else:
-                        print(f'{str(i)}. {s_array}')
-    except KeyError:
-        return
-
-
-# def get_anki(card, lang, word, meaning, **kwargs):
-#     print('ANKI LOG ----------------------')
-
-#     profile = kwargs.get('profile')
-
-#     create_anki(lang)
-
-#     random_meaning = randint(0, len(meaning) - 1)
-
-#     if card is None:
-#         print('Oops! You should select a card type!')
-#         return
-#     elif profile is None:
-#         print(f'creating card type: "{card}", for current user.')
-
-#         if card in ['basic', 'basic-reverse']:
-#             anki.createCard(card, lang, word, meaning[random_meaning])
-#             return
-#         else: # cloze-card
-#             anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
-#             return
-#     else:
-#         thread = threading.Thread(target=anki.changeProfile(profile))
-#         thread.start()
-
-#         # wait until change the profile
-#         thread.join()
-
-#         # Check if the new profile already have the deck
-#         create_anki(lang)
-
-#         print(f'changing profile to "{profile}" and adding card type: "{card}".')
-
-#         if card in ['basic', 'basic-reverse']:
-#             anki.createCard(card, lang, word, meaning[random_meaning])
-#             return
-#         else: # cloze-card
-#             anki.createCard(card, lang, word, meaning[random_meaning], examples=WORD_EXAMPLES)
-#             return
-
-
-# def create_anki(lang):
-    # if anki.IsDeckCreated() == False:
-    #     anki.createDeck()
-
-    # if anki.IsSubDeckCreated(lang) == False:
-    #     anki.createSubDeck(lang)
-
-
-def define_lang(lang):
-    lang_file = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/default_lang.json'
-
-    with open(lang_file, 'r+') as file:
-        json_data = json.load(file)
-        stringfied = json.dumps(json_data)
-
-        old_lang = json_data['default_lang']
-
-        file.seek(0)
-        file.truncate()
-
-        file.write(stringfied.replace(old_lang, lang))
-
-    return
+    synonyms = args['synonyms']
+    examples = args['examples']
+    lang = args['lang'] if args['lang'] != '' else lang
+    lang = lang.upper()
+    print_results(word, lang, synonyms, examples)
 
 if __name__ == '__main__':
-		parser = Args.get_parser()
-		args = vars(parser.parse_args())
-		# main('apple', [args])
-		main(sys.argv[1], [args])
+    parser = Args.get_parser()
+    args = vars(parser.parse_args())
+    word = args['word']
+    main(word, args)
