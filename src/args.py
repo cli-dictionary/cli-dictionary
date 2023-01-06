@@ -18,9 +18,10 @@ class Args():
 		parser.add_argument('-e', '--examples', action='store_true', help='Display a phrase using the requested word.')
 		parser.add_argument('--default-lang', default=None, help='Define the default language to search the words.')
 
+		# TODO: disabled for now
 		# Anki
-		group_anki = parser.add_argument_group('Anki-Flashcards')
-		group_anki.add_argument('--profile', help='Select the profile', type=str)
-		group_anki.add_argument('--card', help='Select the type of card', choices=['basic', 'basic-reverse', 'cloze'])
+		# group_anki = parser.add_argument_group('Anki-Flashcards')
+		# group_anki.add_argument('--profile', help='Select the profile', type=str)
+		# group_anki.add_argument('--card', help='Select the type of card', choices=['basic', 'basic-reverse', 'cloze'])
 
 		return parser

@@ -16,24 +16,12 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-def print_lang_not_found():
-    print("""
-	    Select a valid language:
-	    en <English> | pt <Portuguese>
-	    hi <Hindi>   | es <Spanish>
-	    fr <French>  | ja <Japanese>
-	    ru <Russian> | de <German>
-	    it <Italian> | ko <Korean>
-	    zh <Chinese> | ar <Arabic>
-	    tr <Turkish>""")
-
-
-def print_results(word, lang, sy: bool, ex: bool):
-    if lang in settings.API.keys():
-        url = settings.API[lang] + word
-        print_definition(url, sy, ex)
-    else:
-        print_lang_not_found()
+def get_results(word, lang, sy: bool, ex: bool):
+	if lang in settings.API.keys():
+		url = settings.API[lang] + word
+		print_definition(url, sy, ex)
+	else:
+		print_lang_not_found()
 
 
 def get_response(url):
@@ -55,24 +43,25 @@ def print_meanings(meaning, iter_num):
 
 
 def print_definition(url, sy, ex):
-    data = get_response(url)
-    meanings = data[0]['meanings']
-    for index, meaning in enumerate(meanings, 1):
-        print_meanings(meaning, index)
+	data = get_response(url)
+	meanings = data[0]['meanings']
+	for index, meaning in enumerate(meanings, 1):
+			print_meanings(meaning, index)
 
 def main(word, args):
-    lang = os.getenv('CLI_DICT_DEFAULT_LANG', settings.DEFAULT_LANG)
-    if word == '' or word == None:
-        word = fzf.iterfzf(words)
+	lang = os.getenv('CLI_DICT_DEFAULT_LANG', settings.DEFAULT_LANG)
 
-    synonyms = args['synonyms']
-    examples = args['examples']
-    lang = args['lang'] if args['lang'] != '' else lang
-    lang = lang.upper()
-    print_results(word, lang, synonyms, examples)
+	if word == '' or word == None:
+		word = fzf.iterfzf(words)
+
+	synonyms = args['synonyms']
+	examples = args['examples']
+	lang = args['lang'] if args['lang'] != '' else lang.upper()
+
+	get_results(word, lang, synonyms, examples)
 
 if __name__ == '__main__':
-    parser = Args.get_parser()
-    args = vars(parser.parse_args())
-    word = args['word']
-    main(word, args)
+	parser = Args.get_parser()
+	args = vars(parser.parse_args())
+	word = args['word']
+	main(word, args)
