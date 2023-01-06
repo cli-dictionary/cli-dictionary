@@ -1,5 +1,6 @@
 .vscode/
-/src/dictionary/__pycache__
-/src/anki/__pycache__
-/src/dictionary/languages/__pycache__
-venv/
+__pycache__
+venv
+build
+dist
+cli_dictionary.egg-info
