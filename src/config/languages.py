@@ -6,7 +6,7 @@ class LANGUAGES(enum.Enum):
 	HI = 'Hindi'
 	ES = 'Spanish'
 	FR = 'French'
-	JA = 'Japaneses'
+	JA = 'Japanese'
 	RU = 'Russian'
 	DE = 'German'
 	IT = 'Italian'

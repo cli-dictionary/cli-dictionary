@@ -16,7 +16,7 @@ class Args():
 		# optional args
 		parser.add_argument('-s', '--synonyms', action='store_true', help='Display the synonyms of the requested word.')
 		parser.add_argument('-e', '--examples', action='store_true', help='Display a phrase using the requested word.')
-		parser.add_argument('--default-lang', default=None, help='Define the default language to search the words.')
+		parser.add_argument('--default-lang', default='EN', help='Define the default language to search the words.')
 
 		# TODO: disabled for now
 		# Anki

@@ -1,4 +1,5 @@
 from config.languages import LANGUAGES
+import rich
 
 class Printer():
 	@staticmethod
@@ -6,7 +7,7 @@ class Printer():
 		print('select a valid language: ')
 
 		for lang in LANGUAGES:
-			print(f'{lang.name} - {lang.value} \n')
+			print(f'{lang.name} - {lang.value}')
 
-	def definition():
-		print('definition')
+	def default_print(text: str):
+		rich.print(text)
