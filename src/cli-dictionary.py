@@ -8,17 +8,18 @@ import requests
 import rich
 from rich.console import Console
 
-import configs.config as settings
 from args import Args
-from configs.words import words
+from config.words import words
+from config.api import API
+from config.languages import DEFAULT_LANG
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
 def get_results(word, lang, sy: bool, ex: bool):
-	if lang in settings.API.keys():
-		url = settings.API[lang] + word
+	if lang in API.keys():
+		url = API[lang] + word
 		print_definition(url, sy, ex)
 	else:
 		print_lang_not_found()
@@ -49,7 +50,7 @@ def print_definition(url, sy, ex):
 			print_meanings(meaning, index)
 
 def main(word, args):
-	lang = os.getenv('CLI_DICT_DEFAULT_LANG', settings.DEFAULT_LANG)
+	lang = os.getenv('CLI_DICT_DEFAULT_LANG', DEFAULT_LANG)
 
 	if word == '' or word == None:
 		word = fzf.iterfzf(words)

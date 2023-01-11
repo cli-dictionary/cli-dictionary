@@ -1,4 +1,4 @@
-from languages import LANGUAGES
+from .languages import LANGUAGES
 
 API = {
 	LANGUAGES.EN.name: "https://api.dictionaryapi.dev/api/v2/entries/en/",
@@ -15,5 +15,3 @@ API = {
 	LANGUAGES.AR.name: "https://api.dictionaryapi.dev/api/v2/entries/ar/",
 	LANGUAGES.TR.name: "https://api.dictionaryapi.dev/api/v2/entries/tr/"
 }
-
-DEFAULT_LANG = LANGUAGES.EN.name

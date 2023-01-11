@@ -14,3 +14,5 @@ class LANGUAGES(enum.Enum):
 	ZH = 'Chinese (simplified)'
 	AR = 'Arabic'
 	TR = 'Turkish'
+
+DEFAULT_LANG = LANGUAGES.EN.name
